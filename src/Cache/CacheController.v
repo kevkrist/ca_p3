@@ -4,8 +4,8 @@ module cache_fill_FSM(clk, // Inputs
                       rst_n,
                       miss_detected,
                       miss_address,
-                      memory_data, // These inputs are irrelevant for the HW
-                      memory_data_valid,
+                      /*memory_data, // These inputs are irrelevant for the HW
+                      memory_data_valid,*/
                       fsm_busy, // Outputs
                       write_data_array,
                       write_tag_array,
@@ -50,10 +50,10 @@ module cache_fill_FSM(clk, // Inputs
                       .rst(~rst_n),
                       .In(new_address),
                       .WriteEnable(address_wen),
-                      .Out(cur_count));
+                      .Out(cur_address));
   Adder_16bit address_adder(.Sum(add_address),
                             .Overflow(dummy_overflow2),
-                            .A(old_address),
+                            .A(cur_address),
                             .B(16'h0002),
                             .Sub(1'b0));   
 
@@ -92,7 +92,7 @@ module cache_fill_FSM(clk, // Inputs
             fsm_busy = 1'b1; // Outputs
             write_data_array = 1'b1;
             write_tag_array = 1'b0;
-            memory_address = old_address;
+            memory_address = cur_address;
             state_wen = 1'b0; // Internal signals
             count_wen = 1'b1;
             rst_count = 1'b0;
@@ -114,12 +114,12 @@ module cache_fill_FSM(clk, // Inputs
             fsm_busy = 1'b1; // Outputs
             write_data_array = 1'b0;
             write_tag_array = 1'b0;
-            memory_address = old_address;
+            memory_address = cur_address;
             state_wen = 1'b0; // Internal signals
             count_wen = 1'b1;
             rst_count = 1'b0;
             address_wen = 1'b0;
-            new_address = old_address; 
+            new_address = cur_address; 
           end
         endcase
       end
