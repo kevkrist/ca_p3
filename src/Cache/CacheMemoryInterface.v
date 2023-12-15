@@ -36,6 +36,7 @@ always @(*) begin
         IDLE: begin
             case ({d_cache_request, i_cache_request})
                 2'b10: next_state = D_CACHE_ACTIVE; // D-cache has priority
+                2'b11: next_state = D_CACHE_ACTIVE;
                 2'b01: next_state = I_CACHE_ACTIVE; // No D-cache request, but I-cache is requesting
                 default: next_state = IDLE; // No requests
             endcase
