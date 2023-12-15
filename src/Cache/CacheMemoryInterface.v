@@ -58,16 +58,22 @@ always @(*) begin
             mem_address_out = d_cache_request ? d_cache_address : i_cache_address;
             i_cache_grant = i_cache_request & ~d_cache_request;
             d_cache_grant = d_cache_request;
+            i_cache_stall = 0;
+            d_cache_stall = 0;
         end
         D_CACHE_ACTIVE: begin
             d_cache_grant = 1;
             i_cache_stall = 1;
+            i_cache_grant = 0;
+            d_cache_stall = 0;
             mem_address_out = d_cache_address;
             mem_request = 1;
         end
         I_CACHE_ACTIVE: begin
             i_cache_grant = 1;
             d_cache_stall = 1;
+            d_cache_grant = 0;
+            i_cache_stall = 0;
             mem_address_out = i_cache_address;
             mem_request = 1;
         end
