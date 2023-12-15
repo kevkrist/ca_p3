@@ -14,15 +14,21 @@ module cpu(clk, rst_n, hlt, pc);
                  .WriteEnable(~IF_Stall),
                  .In(IF_NextPC),
                  .Out(IF_PC));
+
+  dff IFStall(.q(IfCacheStallOut), 
+              .d(IFCacheStall|MCacheStall), 
+              .wen(1'b1), 
+              .clk(clk), 
+              .rst(rst));
   InstructionFetch Fetch(.clk(clk), // Inputs
                          .rst(~rst_n),
                          .PC(IF_PC),
-                         .Stall(IF_Stall),
+                         .Stall(IF_Stall|IFCacheStallOut),
                          .PC_Disrupt(IF_PCDisrupt),
                          .PC_Branch(IF_PCBranch),
                          .Instruction(IF_Instruction), // Outputs
                          .NextPC(IF_NextPC),
-                         .hlt(IF_hlt));
+                         .hlt(IF_hlt)); // .CacheStall(IFCacheStall)
   // Instruction decode
   wire IFID_Stall, 
        ID_Stall,

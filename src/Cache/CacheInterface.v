@@ -7,6 +7,7 @@ module CacheInterface(input clk,
                       input[15:0] MemoryDataIn, // From memory
                       input[15:0] MemoryAddressIn,
                       input CacheWriteEnable,
+                      input MemStall,
                       output[15:0] PipelineDataOut, // To pipeline stage
                       output Stall,
                       output[15:0] MemoryAddressOut, // To memory
