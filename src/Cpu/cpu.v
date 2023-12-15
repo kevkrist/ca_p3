@@ -28,7 +28,8 @@ module cpu(clk, rst_n, hlt, pc);
                          .PC_Branch(IF_PCBranch),
                          .Instruction(IF_Instruction), // Outputs
                          .NextPC(IF_NextPC),
-                         .hlt(IF_hlt)); // .CacheStall(IFCacheStall)
+                         .hlt(IF_hlt),
+                         .CacheStall(IFCacheStall));
   // Instruction decode
   wire IFID_Stall, 
        ID_Stall,
