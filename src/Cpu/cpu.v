@@ -6,23 +6,35 @@ module cpu(clk, rst_n, hlt, pc);
   output [15:0] pc;
 
   // Instruction Fetch
-  wire IF_hlt, IF_Stall, IF_PCDisrupt;
+  wire IF_hlt, 
+       IF_Stall, 
+       IF_PCDisrupt,
+       GlobalStall;
   wire [15:0] IF_PC, IF_PCBranch, IF_NextPC, IF_Instruction;
 
+  // PC register
   Register_16 PC(.clk(clk), 
                  .rst(~rst_n), 
-                 .WriteEnable(~IF_Stall),
+                 .WriteEnable(~(IF_Stall|GlobalStall)),
                  .In(IF_NextPC),
                  .Out(IF_PC));
+
   InstructionFetch Fetch(.clk(clk), // Inputs
                          .rst(~rst_n),
                          .PC(IF_PC),
-                         .Stall(IF_Stall),
+                         .Stall(IF_Stall), // From ID
                          .PC_Disrupt(IF_PCDisrupt),
                          .PC_Branch(IF_PCBranch),
+                         .MemStall(), // From memory
+                         .MemData(),
+                         .MemAddress(),
+                         .MemCacheWriteEnable(),
                          .Instruction(IF_Instruction), // Outputs
                          .NextPC(IF_NextPC),
-                         .hlt(IF_hlt));
+                         .hlt(IF_hlt),
+                         .MemoryAddressOut(), // Send to memory
+                         .MemoryRequest());
+
   // Instruction decode
   wire IFID_Stall, 
        ID_Stall,
@@ -60,7 +72,6 @@ module cpu(clk, rst_n, hlt, pc);
   reg [3:0] WB_RegWrite;
   reg [15:0] WB_WriteData;
 
-
   IFIDPipelineRegister IFID(.clk(clk), // Inputs
                             .rst(~rst_n),
                             .HltIn(IF_hlt),
@@ -68,7 +79,7 @@ module cpu(clk, rst_n, hlt, pc);
                             .StallIn(IFID_Stall),
                             .NoopIn(ID_Noop),
                             .PCIn(IF_PC),
-                            .WriteEnable(~IF_Stall),
+                            .WriteEnable(~(IF_Stall|GlobalStall)),
                             .HltOut(ID_Hlt),
                             .InstructionOut(ID_Instruction),
                             .StallOut(ID_Stall),
@@ -139,7 +150,7 @@ module cpu(clk, rst_n, hlt, pc);
               MEM_ALUOut;
   IDEXPipelineRegister IDEX(.clk(clk),
                             .rst(~rst_n),
-                            .WriteEnable(1'b1),
+                            .WriteEnable(~GlobalStall),
                             .HltIn(ID_Hlt),
                             .RegRead1In(IDEX_RegRead1),
                             .RegRead2In(IDEX_RegRead2),
@@ -209,7 +220,7 @@ module cpu(clk, rst_n, hlt, pc);
   EXMEM_PipelineRegister EXMEM(.clk(clk),
                                .rst(~rst_n),
                                .halt_In(EX_Hlt),
-                               .WriteEnable(1'b1),
+                               .WriteEnable(~GlobalStall),
                                .WReg_In(EX_RegWrite),
                                .Mem_EnIn(EX_Mem_En),
                                .MemWr_In(EX_Mem_Wr),
@@ -243,7 +254,14 @@ module cpu(clk, rst_n, hlt, pc);
              .ALUOut(MEM_ALUOut),
              .WB_RegWrite(WB_RegWrite),
              .WB_MemOut(WB_MemOut),
-             .MemOut(MEM_Out)); // Output
+             .MemData(), // From memory
+             .MemAddress(),
+             .MemCacheWriteEnable(),
+             .MemStall(),
+             .MemOut(MEM_Out), // Outputs
+             .Stall(GlobalStall), // A stall in MEM globally stalls pipeline 
+             .MemoryAddressOut(), // Send to memory
+             .MemoryRequest()); 
 
   // Write-back
   wire WB_Hlt, _WB_RF_Wr;
@@ -253,7 +271,7 @@ module cpu(clk, rst_n, hlt, pc);
   MEMWB_PipelineRegister MEMWB(.clk(clk), 
                                .rst(~rst_n),
                                .halt_In(MEM_Hlt), 
-                               .WriteEnable(1'b1), 
+                               .WriteEnable(~GlobalStall), 
                                .WReg_In(MEM_RegWrite), 
                                .RegWrite_In(MEM_RF_Wr),
                                .Mem_DataIn(MEM_Out),

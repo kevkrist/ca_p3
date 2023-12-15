@@ -4,15 +4,14 @@ module cache_fill_FSM(clk, // Inputs
                       rst_n,
                       miss_detected,
                       miss_address,
-                      /*memory_data, // These inputs are irrelevant for the HW
-                      memory_data_valid,*/
+                      memory_stall,
                       fsm_busy, // Outputs
                       write_data_array,
                       write_tag_array,
                       memory_address);
 
-  input clk, rst_n, miss_detected, memory_data_valid;
-  input [15:0] miss_address, memory_data;
+  input clk, rst_n, miss_detected, memory_stall;
+  input [15:0] miss_address;
   output reg fsm_busy, write_data_array, write_tag_array;
   output reg [15:0] memory_address;
 
@@ -31,16 +30,19 @@ module cache_fill_FSM(clk, // Inputs
   assign new_state = ~cur_state;
 
   // Idle: state = 0; Wait: state = 1
+  // Freeze state when stall asserted by memory
   dff state(.q(cur_state), 
             .d(new_state),
-            .wen(state_wen),
+            .wen(state_wen & ~memory_stall),
             .clk(clk),
             .rst(~rst_n));
   Register_16 count(.clk(clk),
                     .rst(rst_count | ~rst_n),
                     .In(new_count),
-                    .WriteEnable(count_wen),
+                    .WriteEnable(count_wen & ~memory_stall),
                     .Out(cur_count));
+
+  // Functional units
   Adder_16bit count_adder(.Sum(new_count),
                           .Overflow(dummy_overflow1),
                           .A(cur_count),
