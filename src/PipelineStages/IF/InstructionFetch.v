@@ -32,7 +32,7 @@ module InstructionFetch(clk,
                          .data_in(16'h0000), 
                          .data_out(_Instruction));*/
   
-  InstructionCache CacheInterface(.clk(clk), 
+  CacheInterface InstructionCache (.clk(clk), 
                                   .rst(rst), 
                                   .PipelineDataIn(16'b0),  //bus 
                                   .PipelineAddressIn(PC),  //bus
