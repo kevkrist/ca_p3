@@ -24,6 +24,7 @@ module CacheInterface(input clk,
        Miss;
   wire [15:0] OldFsmCacheAddress,
               NewFsmCacheAddress,
+              NewFsmMemoryAddress,
               CacheDataIn,
               CacheAddressIn;
 
@@ -69,6 +70,7 @@ module CacheInterface(input clk,
                                  .rst_n(~rst),
                                  .miss_detected(Miss),
                                  .miss_address(PipelineAddressIn),
+                                 .memory_stall(MemoryStall),
                                  .fsm_busy(NewFsmBusy), // Outputs
                                  .write_data_array(NewFsmWriteDataArray),
                                  .write_tag_array(NewFsmWriteMetaDataArray),

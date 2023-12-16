@@ -1,0 +1,828 @@
+$date
+	Sat Dec 16 15:39:40 2023
+$end
+$version
+	Questa Intel Starter FPGA Edition Version 2021.2
+$end
+$timescale
+	1ns
+$end
+
+$scope module cpu_ptb $end
+
+$scope module DUT $end
+$var wire 1 ! MEM_En $end
+
+$scope module MainMemory $end
+
+$scope module Memory4C $end
+$upscope $end
+$upscope $end
+
+$scope module Fetch $end
+
+$scope module InstructionCache $end
+$var wire 1 " CacheEnable $end
+$var wire 1 # Miss $end
+
+$scope module Cache $end
+
+$scope module DA $end
+
+$scope module blk0[63] $end
+$upscope $end
+
+$scope module blk0[62] $end
+$upscope $end
+
+$scope module blk0[61] $end
+$upscope $end
+
+$scope module blk0[60] $end
+$upscope $end
+
+$scope module blk0[59] $end
+$upscope $end
+
+$scope module blk0[58] $end
+$upscope $end
+
+$scope module blk0[57] $end
+$upscope $end
+
+$scope module blk0[56] $end
+$upscope $end
+
+$scope module blk0[55] $end
+$upscope $end
+
+$scope module blk0[54] $end
+$upscope $end
+
+$scope module blk0[53] $end
+$upscope $end
+
+$scope module blk0[52] $end
+$upscope $end
+
+$scope module blk0[51] $end
+$upscope $end
+
+$scope module blk0[50] $end
+$upscope $end
+
+$scope module blk0[49] $end
+$upscope $end
+
+$scope module blk0[48] $end
+$upscope $end
+
+$scope module blk0[47] $end
+$upscope $end
+
+$scope module blk0[46] $end
+$upscope $end
+
+$scope module blk0[45] $end
+$upscope $end
+
+$scope module blk0[44] $end
+$upscope $end
+
+$scope module blk0[43] $end
+$upscope $end
+
+$scope module blk0[42] $end
+$upscope $end
+
+$scope module blk0[41] $end
+$upscope $end
+
+$scope module blk0[40] $end
+$upscope $end
+
+$scope module blk0[39] $end
+$upscope $end
+
+$scope module blk0[38] $end
+$upscope $end
+
+$scope module blk0[37] $end
+$upscope $end
+
+$scope module blk0[36] $end
+$upscope $end
+
+$scope module blk0[35] $end
+$upscope $end
+
+$scope module blk0[34] $end
+$upscope $end
+
+$scope module blk0[33] $end
+$upscope $end
+
+$scope module blk0[32] $end
+$upscope $end
+
+$scope module blk0[31] $end
+$upscope $end
+
+$scope module blk0[30] $end
+$upscope $end
+
+$scope module blk0[29] $end
+$upscope $end
+
+$scope module blk0[28] $end
+$upscope $end
+
+$scope module blk0[27] $end
+$upscope $end
+
+$scope module blk0[26] $end
+$upscope $end
+
+$scope module blk0[25] $end
+$upscope $end
+
+$scope module blk0[24] $end
+$upscope $end
+
+$scope module blk0[23] $end
+$upscope $end
+
+$scope module blk0[22] $end
+$upscope $end
+
+$scope module blk0[21] $end
+$upscope $end
+
+$scope module blk0[20] $end
+$upscope $end
+
+$scope module blk0[19] $end
+$upscope $end
+
+$scope module blk0[18] $end
+$upscope $end
+
+$scope module blk0[17] $end
+$upscope $end
+
+$scope module blk0[16] $end
+$upscope $end
+
+$scope module blk0[15] $end
+$upscope $end
+
+$scope module blk0[14] $end
+$upscope $end
+
+$scope module blk0[13] $end
+$upscope $end
+
+$scope module blk0[12] $end
+$upscope $end
+
+$scope module blk0[11] $end
+$upscope $end
+
+$scope module blk0[10] $end
+$upscope $end
+
+$scope module blk0[9] $end
+$upscope $end
+
+$scope module blk0[8] $end
+$upscope $end
+
+$scope module blk0[7] $end
+$upscope $end
+
+$scope module blk0[6] $end
+$upscope $end
+
+$scope module blk0[5] $end
+$upscope $end
+
+$scope module blk0[4] $end
+$upscope $end
+
+$scope module blk0[3] $end
+$upscope $end
+
+$scope module blk0[2] $end
+$upscope $end
+
+$scope module blk0[1] $end
+$upscope $end
+
+$scope module blk0[0] $end
+$upscope $end
+
+$scope module blk1[63] $end
+$upscope $end
+
+$scope module blk1[62] $end
+$upscope $end
+
+$scope module blk1[61] $end
+$upscope $end
+
+$scope module blk1[60] $end
+$upscope $end
+
+$scope module blk1[59] $end
+$upscope $end
+
+$scope module blk1[58] $end
+$upscope $end
+
+$scope module blk1[57] $end
+$upscope $end
+
+$scope module blk1[56] $end
+$upscope $end
+
+$scope module blk1[55] $end
+$upscope $end
+
+$scope module blk1[54] $end
+$upscope $end
+
+$scope module blk1[53] $end
+$upscope $end
+
+$scope module blk1[52] $end
+$upscope $end
+
+$scope module blk1[51] $end
+$upscope $end
+
+$scope module blk1[50] $end
+$upscope $end
+
+$scope module blk1[49] $end
+$upscope $end
+
+$scope module blk1[48] $end
+$upscope $end
+
+$scope module blk1[47] $end
+$upscope $end
+
+$scope module blk1[46] $end
+$upscope $end
+
+$scope module blk1[45] $end
+$upscope $end
+
+$scope module blk1[44] $end
+$upscope $end
+
+$scope module blk1[43] $end
+$upscope $end
+
+$scope module blk1[42] $end
+$upscope $end
+
+$scope module blk1[41] $end
+$upscope $end
+
+$scope module blk1[40] $end
+$upscope $end
+
+$scope module blk1[39] $end
+$upscope $end
+
+$scope module blk1[38] $end
+$upscope $end
+
+$scope module blk1[37] $end
+$upscope $end
+
+$scope module blk1[36] $end
+$upscope $end
+
+$scope module blk1[35] $end
+$upscope $end
+
+$scope module blk1[34] $end
+$upscope $end
+
+$scope module blk1[33] $end
+$upscope $end
+
+$scope module blk1[32] $end
+$upscope $end
+
+$scope module blk1[31] $end
+$upscope $end
+
+$scope module blk1[30] $end
+$upscope $end
+
+$scope module blk1[29] $end
+$upscope $end
+
+$scope module blk1[28] $end
+$upscope $end
+
+$scope module blk1[27] $end
+$upscope $end
+
+$scope module blk1[26] $end
+$upscope $end
+
+$scope module blk1[25] $end
+$upscope $end
+
+$scope module blk1[24] $end
+$upscope $end
+
+$scope module blk1[23] $end
+$upscope $end
+
+$scope module blk1[22] $end
+$upscope $end
+
+$scope module blk1[21] $end
+$upscope $end
+
+$scope module blk1[20] $end
+$upscope $end
+
+$scope module blk1[19] $end
+$upscope $end
+
+$scope module blk1[18] $end
+$upscope $end
+
+$scope module blk1[17] $end
+$upscope $end
+
+$scope module blk1[16] $end
+$upscope $end
+
+$scope module blk1[15] $end
+$upscope $end
+
+$scope module blk1[14] $end
+$upscope $end
+
+$scope module blk1[13] $end
+$upscope $end
+
+$scope module blk1[12] $end
+$upscope $end
+
+$scope module blk1[11] $end
+$upscope $end
+
+$scope module blk1[10] $end
+$upscope $end
+
+$scope module blk1[9] $end
+$upscope $end
+
+$scope module blk1[8] $end
+$upscope $end
+
+$scope module blk1[7] $end
+$upscope $end
+
+$scope module blk1[6] $end
+$upscope $end
+
+$scope module blk1[5] $end
+$upscope $end
+
+$scope module blk1[4] $end
+$upscope $end
+
+$scope module blk1[3] $end
+$upscope $end
+
+$scope module blk1[2] $end
+$upscope $end
+
+$scope module blk1[1] $end
+$upscope $end
+
+$scope module blk1[0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+
+$scope module Memory $end
+
+$scope module MemoryCache $end
+$var wire 1 ! CacheEnable $end
+$var wire 1 $ Miss $end
+
+$scope module Cache $end
+
+$scope module DA $end
+
+$scope module blk0[63] $end
+$upscope $end
+
+$scope module blk0[62] $end
+$upscope $end
+
+$scope module blk0[61] $end
+$upscope $end
+
+$scope module blk0[60] $end
+$upscope $end
+
+$scope module blk0[59] $end
+$upscope $end
+
+$scope module blk0[58] $end
+$upscope $end
+
+$scope module blk0[57] $end
+$upscope $end
+
+$scope module blk0[56] $end
+$upscope $end
+
+$scope module blk0[55] $end
+$upscope $end
+
+$scope module blk0[54] $end
+$upscope $end
+
+$scope module blk0[53] $end
+$upscope $end
+
+$scope module blk0[52] $end
+$upscope $end
+
+$scope module blk0[51] $end
+$upscope $end
+
+$scope module blk0[50] $end
+$upscope $end
+
+$scope module blk0[49] $end
+$upscope $end
+
+$scope module blk0[48] $end
+$upscope $end
+
+$scope module blk0[47] $end
+$upscope $end
+
+$scope module blk0[46] $end
+$upscope $end
+
+$scope module blk0[45] $end
+$upscope $end
+
+$scope module blk0[44] $end
+$upscope $end
+
+$scope module blk0[43] $end
+$upscope $end
+
+$scope module blk0[42] $end
+$upscope $end
+
+$scope module blk0[41] $end
+$upscope $end
+
+$scope module blk0[40] $end
+$upscope $end
+
+$scope module blk0[39] $end
+$upscope $end
+
+$scope module blk0[38] $end
+$upscope $end
+
+$scope module blk0[37] $end
+$upscope $end
+
+$scope module blk0[36] $end
+$upscope $end
+
+$scope module blk0[35] $end
+$upscope $end
+
+$scope module blk0[34] $end
+$upscope $end
+
+$scope module blk0[33] $end
+$upscope $end
+
+$scope module blk0[32] $end
+$upscope $end
+
+$scope module blk0[31] $end
+$upscope $end
+
+$scope module blk0[30] $end
+$upscope $end
+
+$scope module blk0[29] $end
+$upscope $end
+
+$scope module blk0[28] $end
+$upscope $end
+
+$scope module blk0[27] $end
+$upscope $end
+
+$scope module blk0[26] $end
+$upscope $end
+
+$scope module blk0[25] $end
+$upscope $end
+
+$scope module blk0[24] $end
+$upscope $end
+
+$scope module blk0[23] $end
+$upscope $end
+
+$scope module blk0[22] $end
+$upscope $end
+
+$scope module blk0[21] $end
+$upscope $end
+
+$scope module blk0[20] $end
+$upscope $end
+
+$scope module blk0[19] $end
+$upscope $end
+
+$scope module blk0[18] $end
+$upscope $end
+
+$scope module blk0[17] $end
+$upscope $end
+
+$scope module blk0[16] $end
+$upscope $end
+
+$scope module blk0[15] $end
+$upscope $end
+
+$scope module blk0[14] $end
+$upscope $end
+
+$scope module blk0[13] $end
+$upscope $end
+
+$scope module blk0[12] $end
+$upscope $end
+
+$scope module blk0[11] $end
+$upscope $end
+
+$scope module blk0[10] $end
+$upscope $end
+
+$scope module blk0[9] $end
+$upscope $end
+
+$scope module blk0[8] $end
+$upscope $end
+
+$scope module blk0[7] $end
+$upscope $end
+
+$scope module blk0[6] $end
+$upscope $end
+
+$scope module blk0[5] $end
+$upscope $end
+
+$scope module blk0[4] $end
+$upscope $end
+
+$scope module blk0[3] $end
+$upscope $end
+
+$scope module blk0[2] $end
+$upscope $end
+
+$scope module blk0[1] $end
+$upscope $end
+
+$scope module blk0[0] $end
+$upscope $end
+
+$scope module blk1[63] $end
+$upscope $end
+
+$scope module blk1[62] $end
+$upscope $end
+
+$scope module blk1[61] $end
+$upscope $end
+
+$scope module blk1[60] $end
+$upscope $end
+
+$scope module blk1[59] $end
+$upscope $end
+
+$scope module blk1[58] $end
+$upscope $end
+
+$scope module blk1[57] $end
+$upscope $end
+
+$scope module blk1[56] $end
+$upscope $end
+
+$scope module blk1[55] $end
+$upscope $end
+
+$scope module blk1[54] $end
+$upscope $end
+
+$scope module blk1[53] $end
+$upscope $end
+
+$scope module blk1[52] $end
+$upscope $end
+
+$scope module blk1[51] $end
+$upscope $end
+
+$scope module blk1[50] $end
+$upscope $end
+
+$scope module blk1[49] $end
+$upscope $end
+
+$scope module blk1[48] $end
+$upscope $end
+
+$scope module blk1[47] $end
+$upscope $end
+
+$scope module blk1[46] $end
+$upscope $end
+
+$scope module blk1[45] $end
+$upscope $end
+
+$scope module blk1[44] $end
+$upscope $end
+
+$scope module blk1[43] $end
+$upscope $end
+
+$scope module blk1[42] $end
+$upscope $end
+
+$scope module blk1[41] $end
+$upscope $end
+
+$scope module blk1[40] $end
+$upscope $end
+
+$scope module blk1[39] $end
+$upscope $end
+
+$scope module blk1[38] $end
+$upscope $end
+
+$scope module blk1[37] $end
+$upscope $end
+
+$scope module blk1[36] $end
+$upscope $end
+
+$scope module blk1[35] $end
+$upscope $end
+
+$scope module blk1[34] $end
+$upscope $end
+
+$scope module blk1[33] $end
+$upscope $end
+
+$scope module blk1[32] $end
+$upscope $end
+
+$scope module blk1[31] $end
+$upscope $end
+
+$scope module blk1[30] $end
+$upscope $end
+
+$scope module blk1[29] $end
+$upscope $end
+
+$scope module blk1[28] $end
+$upscope $end
+
+$scope module blk1[27] $end
+$upscope $end
+
+$scope module blk1[26] $end
+$upscope $end
+
+$scope module blk1[25] $end
+$upscope $end
+
+$scope module blk1[24] $end
+$upscope $end
+
+$scope module blk1[23] $end
+$upscope $end
+
+$scope module blk1[22] $end
+$upscope $end
+
+$scope module blk1[21] $end
+$upscope $end
+
+$scope module blk1[20] $end
+$upscope $end
+
+$scope module blk1[19] $end
+$upscope $end
+
+$scope module blk1[18] $end
+$upscope $end
+
+$scope module blk1[17] $end
+$upscope $end
+
+$scope module blk1[16] $end
+$upscope $end
+
+$scope module blk1[15] $end
+$upscope $end
+
+$scope module blk1[14] $end
+$upscope $end
+
+$scope module blk1[13] $end
+$upscope $end
+
+$scope module blk1[12] $end
+$upscope $end
+
+$scope module blk1[11] $end
+$upscope $end
+
+$scope module blk1[10] $end
+$upscope $end
+
+$scope module blk1[9] $end
+$upscope $end
+
+$scope module blk1[8] $end
+$upscope $end
+
+$scope module blk1[7] $end
+$upscope $end
+
+$scope module blk1[6] $end
+$upscope $end
+
+$scope module blk1[5] $end
+$upscope $end
+
+$scope module blk1[4] $end
+$upscope $end
+
+$scope module blk1[3] $end
+$upscope $end
+
+$scope module blk1[2] $end
+$upscope $end
+
+$scope module blk1[1] $end
+$upscope $end
+
+$scope module blk1[0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x#
+0!
+0$
+1"
+$end
+#400
+x"

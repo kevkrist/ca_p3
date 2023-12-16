@@ -16,7 +16,8 @@ module MemoryInterface(input clk, // INPUTS
 
   // Adjudication mechanism between memory request and instruction request
   assign MemoryAddress = MemMemRequest ? MemMemAddress :
-                         InstructionMemRequest: InstructionMemAddress;
+                         InstructionMemRequest ? InstructionMemAddress
+                                               : 16'h0000;
   assign MemoryDataIn = MemMemRequest ? MemMemData : 16'h0000;
   assign MemoryWrite = MemMemRequest & MemMemWrite;
   assign MemoryEnable = MemMemRequest | InstructionMemRequest;

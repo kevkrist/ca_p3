@@ -33,7 +33,7 @@ module MEM (input clk, // INPUTS
                              .PipelineAddressIn(ALUOut),
                              .PipelineWriteEnable(Mem_Wr),
                              .MemoryDataIn(MemData),
-                             .MemoryStall(MemStall),
+                             .MemoryStall(1'b0),
                              .PipelineDataOut(MemOut), // OUTPUTS
                              .Stall(CacheStall),
                              .MemoryAddressOut(_MemoryAddressOut),

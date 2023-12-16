@@ -1,0 +1,269 @@
+# Compile of Adder_1bit.v was successful.
+# Compile of Adder_4bit.v was successful.
+# Compile of Adder_16bit.v was successful.
+# Compile of PSWAdder.v was successful.
+# Compile of Alu.v was successful.
+# Compile of Cache_2KB.v failed with 3 errors.
+# Compile of CacheController.v was successful.
+# Compile of CacheInterface.v was successful.
+# Compile of DataArray.v was successful.
+# Compile of MetaDataArray.v was successful.
+# Compile of control.v was successful.
+# Compile of cpu.v was successful.
+# Compile of MemoryInterface.v failed with 1 errors.
+# Compile of multicycle_memory.v was successful.
+# Compile of pc_control.v was successful.
+# Compile of Execute.v was successful.
+# Compile of IDEXPipelineRegister.v was successful.
+# Compile of ControlHazard.v was successful.
+# Compile of DataHazard.v was successful.
+# Compile of IFIDPipelineRegister.v was successful.
+# Compile of InstructionDecode.v was successful.
+# Compile of InstructionFetch.v failed with 1 errors.
+# Compile of EXMEM_PipelineRegister.v was successful.
+# Compile of MEM.v was successful.
+# Compile of MEMWB_PipelineRegister.v was successful.
+# Compile of CLA_4bit.v was successful.
+# Compile of CLA_9bit.v was successful.
+# Compile of RED.v was successful.
+# Compile of BitCell.v was successful.
+# Compile of D-Flip-Flop.v was successful.
+# Compile of PC_Flag_Registers.v was successful.
+# Compile of ReadDecoder_4_16.v was successful.
+# Compile of Register.v was successful.
+# Compile of RegisterFile.v was successful.
+# Compile of WriteDecoder_4_16.v was successful.
+# Compile of Register_2.v was successful.
+# Compile of Register_3.v was successful.
+# Compile of Register_4.v was successful.
+# Compile of Register_8.v was successful.
+# Compile of Register_16.v was successful.
+# Compile of Mux_3_1.v was successful.
+# Compile of Mux_3_1_Array.v was successful.
+# Compile of RotateRight.v was successful.
+# Compile of Shifter.v was successful.
+# Compile of ShiftLeftLogical.v was successful.
+# Compile of ShiftRightArithmetic.v was successful.
+# Compile of project-phase3-testbench.v was successful.
+# 47 compiles, 3 failed with 5 errors.
+# Compile of MemoryInterface.v was successful.
+# Compile of Cache_2KB.v failed with 1 errors.
+# Compile of Cache_2KB.v failed with 2 errors.
+# Compile of Cache_2KB.v failed with 2 errors.
+# Compile of Cache_2KB.v failed with 1 errors.
+# Compile of Cache_2KB.v failed with 2 errors.
+# Compile of Cache_2KB.v failed with 2 errors.
+# Compile of InstructionFetch.v failed with 1 errors.
+# Compile of InstructionFetch.v failed with 2 errors.
+# Compile of InstructionFetch.v was successful.
+# Compile of Cache_2KB.v was successful.
+# Compile of Adder_1bit.v was successful.
+# Compile of Adder_4bit.v was successful.
+# Compile of Adder_16bit.v was successful.
+# Compile of PSWAdder.v was successful.
+# Compile of Alu.v was successful.
+# Compile of Cache_2KB.v was successful.
+# Compile of CacheController.v was successful.
+# Compile of CacheInterface.v was successful.
+# Compile of DataArray.v was successful.
+# Compile of MetaDataArray.v was successful.
+# Compile of control.v was successful.
+# Compile of cpu.v was successful.
+# Compile of MemoryInterface.v was successful.
+# Compile of multicycle_memory.v was successful.
+# Compile of pc_control.v was successful.
+# Compile of Execute.v was successful.
+# Compile of IDEXPipelineRegister.v was successful.
+# Compile of ControlHazard.v was successful.
+# Compile of DataHazard.v was successful.
+# Compile of IFIDPipelineRegister.v was successful.
+# Compile of InstructionDecode.v was successful.
+# Compile of InstructionFetch.v was successful.
+# Compile of EXMEM_PipelineRegister.v was successful.
+# Compile of MEM.v was successful.
+# Compile of MEMWB_PipelineRegister.v was successful.
+# Compile of CLA_4bit.v was successful.
+# Compile of CLA_9bit.v was successful.
+# Compile of RED.v was successful.
+# Compile of BitCell.v was successful.
+# Compile of D-Flip-Flop.v was successful.
+# Compile of PC_Flag_Registers.v was successful.
+# Compile of ReadDecoder_4_16.v was successful.
+# Compile of Register.v was successful.
+# Compile of RegisterFile.v was successful.
+# Compile of WriteDecoder_4_16.v was successful.
+# Compile of Register_2.v was successful.
+# Compile of Register_3.v was successful.
+# Compile of Register_4.v was successful.
+# Compile of Register_8.v was successful.
+# Compile of Register_16.v was successful.
+# Compile of Mux_3_1.v was successful.
+# Compile of Mux_3_1_Array.v was successful.
+# Compile of RotateRight.v was successful.
+# Compile of Shifter.v was successful.
+# Compile of ShiftLeftLogical.v was successful.
+# Compile of ShiftRightArithmetic.v was successful.
+# Compile of project-phase3-testbench.v was successful.
+# 47 compiles, 0 failed with no errors.
+# Compile of CacheInterface.v was successful.
+# Compile of project-phase3-testbench.v was successful.
+# 2 compiles, 0 failed with no errors.
+# Compile of InstructionFetch.v was successful.
+# Compile of MEM.v was successful.
+vsim -voptargs=+acc work.cpu_ptb
+# vsim -voptargs="+acc" work.cpu_ptb 
+# Start time: 15:20:34 on Dec 16,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error: I:/CaIntro/ca_p3/src/Cache/Cache_2KB.v(28): Register is illegal in left-hand side of continuous assignment
+# ** Error: I:/CaIntro/ca_p3/src/Cache/Cache_2KB.v(30): Register is illegal in left-hand side of continuous assignment
+# Optimization failed
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=2, Warnings=0.
+# Error loading design
+# End time: 15:20:39 on Dec 16,2023, Elapsed time: 0:00:05
+# Errors: 2, Warnings: 36
+# Compile of Cache_2KB.v was successful.
+vsim -voptargs=+acc work.cpu_ptb
+# vsim -voptargs="+acc" work.cpu_ptb 
+# Start time: 15:22:13 on Dec 16,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error (suppressible): (vopt-14408) Intel Starter FPGA Edition recommended capacity is 5000 non-OEM instances. There are 73993 non OEM instances. Expect performance to be severely impacted. 
+# ** Warning: I:/CaIntro/ca_p3/src/Cache/CacheInterface.v(67): (vopt-2685) [TFMPC] - Too few port connections for 'CacheController'.  Expected 11, found 10.
+# ** Warning: I:/CaIntro/ca_p3/src/Cache/CacheInterface.v(67): (vopt-2718) [TFMPC] - Missing connection for port 'memory_stall'.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=1, Warnings=2.
+# Error loading design
+# End time: 15:22:19 on Dec 16,2023, Elapsed time: 0:00:06
+# Errors: 1, Warnings: 4
+vsim -voptargs=+acc work.cpu_ptb
+# vsim -voptargs="+acc" work.cpu_ptb 
+# Start time: 15:25:47 on Dec 16,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error (suppressible): (vopt-14408) Intel Starter FPGA Edition recommended capacity is 5000 non-OEM instances. There are 73993 non OEM instances. Expect performance to be severely impacted. 
+# ** Warning: I:/CaIntro/ca_p3/src/Cache/CacheInterface.v(67): (vopt-2685) [TFMPC] - Too few port connections for 'CacheController'.  Expected 11, found 10.
+# ** Warning: I:/CaIntro/ca_p3/src/Cache/CacheInterface.v(67): (vopt-2718) [TFMPC] - Missing connection for port 'memory_stall'.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=1, Warnings=2.
+# Error loading design
+# End time: 15:25:57 on Dec 16,2023, Elapsed time: 0:00:10
+# Errors: 1, Warnings: 3
+# Compile of InstructionFetch.v was successful.
+# Compile of CacheInterface.v was successful.
+# Compile of MEM.v was successful.
+vsim -voptargs=+acc work.cpu_ptb
+# vsim -voptargs="+acc" work.cpu_ptb 
+# Start time: 15:26:38 on Dec 16,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error (suppressible): (vopt-14408) Intel Starter FPGA Edition recommended capacity is 5000 non-OEM instances. There are 73993 non OEM instances. Expect performance to be severely impacted. 
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=1, Warnings=0.
+# Error loading design
+# End time: 15:26:46 on Dec 16,2023, Elapsed time: 0:00:08
+# Errors: 1, Warnings: 4
+vsim -voptargs=+acc work.cpu_ptb
+# vsim -voptargs="+acc" work.cpu_ptb 
+# Start time: 15:27:17 on Dec 16,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error (suppressible): (vopt-14408) Intel Starter FPGA Edition recommended capacity is 5000 non-OEM instances. There are 73993 non OEM instances. Expect performance to be severely impacted. 
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=1, Warnings=0.
+# Error loading design
+# End time: 15:27:25 on Dec 16,2023, Elapsed time: 0:00:08
+# Errors: 1, Warnings: 1
+supress 14408
+# invalid command name "supress"
+vsim -supress 14408
+# ** UI-Msg: (vish-3296) Unknown option '-supress'.
+# Use the -help option for complete vsim usage.
+# Error loading design
+supress -help
+# invalid command name "supress"
+suppress -help
+# ** Warning: (vish-181) Invalid message format: -help.
+# Usage: suppress [[-clear] <message_number>[,<message_number>,...]]
+suppress 14408
+# Error while executing: suppress
+# Usage: suppress [-clear <msg_number>[,<msg_number>,...]] [<msg_number>[,<msg_number>,...]] [<code_string>[, <code_string>, ...]
+vsim -suppress 14408
+# No design specified
+vsim -help
+# Questa  Intel Starter FPGA Edition-64 vsim 2021.2 Simulator 2021.04 Apr 14 2021
+#     The vsim tool provides HDL simulation based on the compiled and optimized
+#     design and it provides various post-simulation analysis capabilities. In
+#     simulation mode it expects to be provided with the optimization output for
+#     the root of the design, or it will automatically produce such an
+#     optimization from the root of the design.
+#     
+#     Try the following to get help on specific options or categories: 
+# 
+#     vsim -help all            : List all categories and options
+#     vsim -help category       : List all categories
+#     vsim -help <option>       : Help on an option
+#     vsim -help <command-line> : Help on all options in a command-line
+#     vsim -help <category>     : List all options in a category
+# 
+#     Category:       The list of categories in vsim tool.
+# 
+#     General         List most common general options
+#     Coverage        List options for Coverage
+#     Cpp             List options supporting SystemC module
+#     Debug           List options for debug, and assertion
+#     GLS             List options for Gate Level Simulation
+#     Language        List all options supported by hardware language Verilog/VHDL
+#     Library         List options for design, work library
+#     License         List options helping for license issues
+#     Messages        List all warn, error, note, fatal messages options
+#     MultiCore       List options supporting for Multicore (MC2)
+#     PA              List most common options supporting for Power Aware
+#     Pdu             List options for Preoptimized Design Unit.
+#     Report          List options for reporting log file, statistics, capstats
+#     Solver          List options supporting for Solver
+#     Visualizer      List options supporting for visualizer
+# vsim -supress 14408
+# ** UI-Msg: (vish-3296) Unknown option '-supress'.
+# Use the -help option for complete vsim usage.
+# Error loading design
+vsim -suppress 14408
+# No design specified
+vsim cpu_ptb -suppress 14408
+# vsim cpu_ptb -suppress 14408 
+# Start time: 15:33:40 on Dec 16,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: I:/CaIntro/ca_p3/src/Cache/CacheInterface.v(68): (vopt-2241) Connection width does not match width of port 'memory_address'. The port definition is at: I:/CaIntro/ca_p3/src/Cache/CacheController.v(11).
+# ** Warning: I:/CaIntro/ca_p3/src/PipelineStages/ID/IFIDPipelineRegister.v(54): (vopt-2958) Implicit wire 'StallReassertEnableEnable' does not have any driver.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading work.cpu_ptb(fast)
+# Loading work.CacheInterface(fast)
+# Loading work.Block(fast)
+# ** Error (suppressible): (vsim-16154) Design size exceeds Questa Intel Starter FPGA Edition recommended capacity limit of 5000. Expect performance to be severely impacted.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading work.cpu_ptb(fast)
+# Loading work.CacheInterface(fast)
+# Loading work.Block(fast)
+# ** Error (suppressible): (vsim-16154) Design size exceeds Questa Intel Starter FPGA Edition recommended capacity limit of 5000. Expect performance to be severely impacted.
+# Compile of IFIDPipelineRegister.v was successful.
+# Compile of CacheInterface.v was successful.
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading work.cpu_ptb(fast)
+# Loading work.CacheInterface(fast)
+# Loading work.Block(fast)
+# ** Error (suppressible): (vsim-16154) Design size exceeds Questa Intel Starter FPGA Edition recommended capacity limit of 5000. Expect performance to be severely impacted.
+run -all
+# Hello world...simulation starting
+# See verilogsim.plog and verilogsim.ptrace for output
+quit -sim
+# End time: 15:39:06 on Dec 16,2023, Elapsed time: 0:05:26
+# Errors: 1, Warnings: 1, Suppressed Errors: 1
+vsim cpu_ptb -suppress 14408
+# vsim cpu_ptb -suppress 14408 
+# Start time: 15:39:26 on Dec 16,2023
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading work.cpu_ptb(fast)
+# Loading work.CacheInterface(fast)
+# Loading work.Block(fast)
+# ** Error (suppressible): (vsim-16154) Design size exceeds Questa Intel Starter FPGA Edition recommended capacity limit of 5000. Expect performance to be severely impacted.
+run -all
+# Hello world...simulation starting
+# See verilogsim.plog and verilogsim.ptrace for output
+# End time: 15:42:34 on Dec 16,2023, Elapsed time: 0:03:08
+# Errors: 1, Warnings: 1

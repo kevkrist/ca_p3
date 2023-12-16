@@ -51,7 +51,7 @@ module IFIDPipelineRegister(clk,
   // StallReassert, so that a stall is still reasserted in the next stage.
   dff StallReassert(.q(StallOut),
                     .d(StallIn),
-                    .wen(StallReassertEnableEnable),
+                    .wen(StallReassertEnable),
                     .clk(clk),
                     .rst(rst | NoopIn));
 endmodule

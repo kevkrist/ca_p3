@@ -13,10 +13,10 @@ module InstructionFetch(clk, // INPUTS
                         hlt,
                         MemoryAddressOut,
                         MemoryRequest);
-  input clk, rst, Stall, PC_Disrupt, MemCacheWriteEnable;
+  input clk, rst, Stall, PC_Disrupt, MemStall;
   input [15:0] PC, PC_Branch;
   output hlt, MemoryRequest;
-  output [15:0] Instruction, NextPC, MemoryAddressOut, MemAddress, MemData;
+  output [15:0] Instruction, NextPC, MemoryAddressOut, MemData;
 
   wire _hlt, Dummy, CacheStall, _MemoryRequest;
   wire [15:0] _Instruction, PC_2, _MemoryAddressOut;
@@ -29,7 +29,7 @@ module InstructionFetch(clk, // INPUTS
 
   CacheInterface InstructionCache(.clk(clk), // INPUTS
                                   .rst(rst),
-                                  .CacheEnable(1'b1 & ~PC_Disrupt),
+                                  .CacheEnable(~PC_Disrupt & ~MemStall),
                                   .PipelineDataIn(16'h000),
                                   .PipelineAddressIn(PC),
                                   .PipelineWriteEnable(1'b0),
