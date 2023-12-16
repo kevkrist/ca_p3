@@ -72,7 +72,7 @@ module cache_fill_FSM(clk, // Inputs
             count_wen = 1'b0;
             rst_count = 1'b1;
             address_wen = 1'b1;
-            new_address = miss_address;
+            new_address = miss_address; // TODO: ensure miss address is block-aligned
           end
           default: begin // No miss detected. Remain in idle state.
             fsm_busy = 1'b0; // Outputs

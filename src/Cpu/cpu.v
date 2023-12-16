@@ -5,6 +5,38 @@ module cpu(clk, rst_n, hlt, pc);
   output hlt;
   output [15:0] pc;
 
+  // Main Memory
+  wire IF_MemRequest, 
+       MEM_MemRequest, 
+       MEM_MemWrite,
+       IF_CacheWriteEnable,
+       MEM_CacheWriteEnable,
+       IF_MemStall,
+       MEM_MemStall;
+  wire [15:0] IF_MemAddressRequest, 
+              MEM_MemAddressRequest,
+              MEM_MemDataWrite,
+              IF_MemData,
+              IF_MemAddress,
+              MEM_MemData,
+              MEM_MemAddress;
+  MemoryInterface MainMemory(.clk(clk), // INPUTS
+                             .rst(~rst_n),
+                             .InstructionMemRequest(IF_MemRequest),
+                             .InstructionMemAddress(IF_MemAddressRequest),
+                             .MemMemRequest(MEM_MemRequest),
+                             .MemMemWrite(MEM_MemWrite),
+                             .MemMemAddress(MEM_MemAddressRequest),
+                             .MemMemData(MEM_MemDataWrite),
+                             .InstructionMemStallOut(IF_MemStall), // OUTPUTS
+                             .InstructionMemDataOut(IF_MemData),
+                             .InstructionMemAddressOut(IF_MemAddress),
+                             .InstructionCacheWriteEnable(IF_CacheWriteEnable),
+                             .MemMemDataOut(MEM_MemData),
+                             .MemMemAddressOut(MEM_MemAddress),
+                             .MemCacheWriteEnable(MEM_CacheWriteEnable),
+                             .MemMemStallOut(MEM_MemStall));
+
   // Instruction Fetch
   wire IF_hlt, 
        IF_Stall, 
@@ -25,15 +57,15 @@ module cpu(clk, rst_n, hlt, pc);
                          .Stall(IF_Stall), // From ID
                          .PC_Disrupt(IF_PCDisrupt),
                          .PC_Branch(IF_PCBranch),
-                         .MemStall(), // From memory
-                         .MemData(),
-                         .MemAddress(),
-                         .MemCacheWriteEnable(),
+                         .MemStall(IF_MemStall), // From memory
+                         .MemData(IF_MemData),
+                         .MemAddress(IF_MemAddress),
+                         .MemCacheWriteEnable(IF_CacheWriteEnable),
                          .Instruction(IF_Instruction), // Outputs
                          .NextPC(IF_NextPC),
                          .hlt(IF_hlt),
-                         .MemoryAddressOut(), // Send to memory
-                         .MemoryRequest());
+                         .MemoryAddressOut(IF_MemAddressRequest), // To memory
+                         .MemoryRequest(IF_MemRequest));
 
   // Instruction decode
   wire IFID_Stall, 
@@ -254,14 +286,16 @@ module cpu(clk, rst_n, hlt, pc);
              .ALUOut(MEM_ALUOut),
              .WB_RegWrite(WB_RegWrite),
              .WB_MemOut(WB_MemOut),
-             .MemData(), // From memory
-             .MemAddress(),
-             .MemCacheWriteEnable(),
-             .MemStall(),
+             .MemData(MEM_MemData), // From memory
+             .MemAddress(MEM_MemAddress),
+             .MemCacheWriteEnable(MEM_CacheWriteEnable),
+             .MemStall(MEM_MemStall),
              .MemOut(MEM_Out), // Outputs
              .Stall(GlobalStall), // A stall in MEM globally stalls pipeline 
-             .MemoryAddressOut(), // Send to memory
-             .MemoryRequest()); 
+             .MemoryAddressOut(MEM_MemAddressRequest), // Send to memory
+             .MemoryDataOut(MEM_MemDataWrite),
+             .MemoryRequest(MEM_MemRequest));
+  assign MEM_MemWrite = MEM_Wr; // Write-through cache policy
 
   // Write-back
   wire WB_Hlt, _WB_RF_Wr;

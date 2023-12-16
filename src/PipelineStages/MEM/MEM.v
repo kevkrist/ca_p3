@@ -18,6 +18,7 @@ module MEM (input clk, // INPUTS
             output [15:0] MemOut, // OUTPUTS
             output Stall,
             output [15:0] MemoryAddressOut,
+            output [15:0] MemoryDataOut,
             output MemoryRequest);
 
   wire MemToMemFwd, CacheStall, _MemoryRequest;
@@ -27,14 +28,6 @@ module MEM (input clk, // INPUTS
                        (WBOpcodeIn == 4'b1000) & 
                        (WB_RegWrite == SrcReg1);
   assign RegRead = MemToMemFwd ? WB_MemOut : RegRead1; // Forwarding
-
-  DataMem DataMemory(.data_out(MemOut),
-                     .data_in(RegRead),
-                     .addr(ALUOut),
-                     .enable(Mem_En),
-                     .wr(Mem_Wr),
-                     .clk(clk),
-                     .rst(rst));
 
   CacheInterface MemoryCache(.clk(clk), // INPUTS
                              .rst(rst),
@@ -50,6 +43,7 @@ module MEM (input clk, // INPUTS
                              .MemoryRequest(_MemoryRequest));
 
 assign MemoryAddressOut = _MemoryAddressOut;
+assign MemoryDataOut = RegRead;
 assign MemoryRequest = _MemoryRequest;
 
 endmodule
