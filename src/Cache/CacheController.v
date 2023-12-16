@@ -8,12 +8,14 @@ module cache_fill_FSM(clk, // Inputs
                       fsm_busy, // Outputs
                       write_data_array,
                       write_tag_array,
-                      memory_address);
+                      memory_address,
+                      memory_request,
+                      cache_address);
 
   input clk, rst_n, miss_detected, memory_stall;
   input [15:0] miss_address;
-  output reg fsm_busy, write_data_array, write_tag_array;
-  output reg [15:0] memory_address;
+  output reg fsm_busy, write_data_array, write_tag_array, memory_request;
+  output reg [15:0] memory_address, cache_address;
 
   wire cur_state, 
        new_state, 
@@ -67,23 +69,28 @@ module cache_fill_FSM(clk, // Inputs
             fsm_busy = 1'b1; // Outputs
             write_data_array = 1'b0;
             write_tag_array = 1'b0;
-            memory_address = 16'h000;
+            memory_address = miss_address & 16'hfff0; // Send request to memory
+            cache_address = 16'h0000;
             state_wen = 1'b1; // Internal signals
             count_wen = 1'b0;
             rst_count = 1'b1;
             address_wen = 1'b1;
-            new_address = miss_address; // TODO: ensure miss address is block-aligned
+            // Ensure miss address is block-aligned
+            new_address = miss_address & 16'hfff0;
+            memory_request = 1'b1;
           end
           default: begin // No miss detected. Remain in idle state.
             fsm_busy = 1'b0; // Outputs
             write_data_array = 1'b0;
             write_tag_array = 1'b0;
             memory_address = 16'h0000;
+            cache_address = 16'h0000;
             state_wen = 1'b0; // Internal signals
             count_wen = 1'b0;
             rst_count = 1'b0;
             address_wen = 1'b0;
             new_address = 16'h0000;
+            memory_request = 1'b0;
           end
         endcase
       end
@@ -94,34 +101,40 @@ module cache_fill_FSM(clk, // Inputs
             fsm_busy = 1'b1; // Outputs
             write_data_array = 1'b1;
             write_tag_array = 1'b0;
-            memory_address = cur_address;
+            memory_address = add_address;
+            cache_address = cur_address;
             state_wen = 1'b0; // Internal signals
             count_wen = 1'b1;
             rst_count = 1'b0;
             address_wen = 1'b1;
             new_address = add_address;
+            memory_request = 1'b1;
           end
           16'h0020: begin // Memory transfer completed. Switch to idle state.
             fsm_busy = 1'b0; // Outputs
             write_data_array = 1'b1;
             write_tag_array = 1'b1;
-            memory_address = add_address;
+            memory_address = 16'h0000;
+            cache_address = cur_address;
             state_wen = 1'b1;
             count_wen = 1'b0;
             rst_count = 1'b1;
             address_wen = 1'b0;
-            new_address = 16'h000;
+            new_address = 16'h0000;
+            memory_request = 1'b0;
           end
           default: begin // Remain in wait state.
             fsm_busy = 1'b1; // Outputs
             write_data_array = 1'b0;
             write_tag_array = 1'b0;
             memory_address = cur_address;
+            cache_address = cur_address;
             state_wen = 1'b0; // Internal signals
             count_wen = 1'b1;
             rst_count = 1'b0;
             address_wen = 1'b0;
-            new_address = cur_address; 
+            new_address = cur_address;
+            memory_request = 1'b0;
           end
         endcase
       end
@@ -130,11 +143,13 @@ module cache_fill_FSM(clk, // Inputs
         write_data_array = 1'b0;
         write_tag_array = 1'b0;
         memory_address = 16'h000;
+        cache_address = 16'h0000;
         state_wen = 1'b0; // Internal signals
         count_wen = 1'b0;
         rst_count = 1'b0;
         address_wen = 1'b0;
         new_address = 16'h0000;
+        memory_request = 1'b0;
       end
     endcase
   end

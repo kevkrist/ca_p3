@@ -12,9 +12,6 @@ module MEM (input clk, // INPUTS
             input [15:0] WB_MemOut,
             input [15:0] ALUOut,
             input [15:0] MemData, // From memory
-            input [15:0] MemAddress,
-            input MemCacheWriteEnable,
-            input MemStall,
             output [15:0] MemOut, // OUTPUTS
             output Stall,
             output [15:0] MemoryAddressOut,
@@ -31,11 +28,11 @@ module MEM (input clk, // INPUTS
 
   CacheInterface MemoryCache(.clk(clk), // INPUTS
                              .rst(rst),
+                             .CacheEnable(Mem_En),
                              .PipelineDataIn(RegRead),
                              .PipelineAddressIn(ALUOut),
+                             .PipelineWriteEnable(Mem_Wr),
                              .MemoryDataIn(MemData),
-                             .MemoryAddressIn(MemAddress),
-                             .CacheWriteEnable(Mem_En | MemCacheWriteEnable),
                              .MemoryStall(MemStall),
                              .PipelineDataOut(MemOut), // OUTPUTS
                              .Stall(CacheStall),
@@ -45,5 +42,6 @@ module MEM (input clk, // INPUTS
 assign MemoryAddressOut = _MemoryAddressOut;
 assign MemoryDataOut = RegRead;
 assign MemoryRequest = _MemoryRequest;
+assign Stall = CacheStall;
 
 endmodule

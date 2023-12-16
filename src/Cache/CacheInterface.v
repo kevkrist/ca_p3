@@ -2,11 +2,11 @@
 // author: Kevin Kristensen
 module CacheInterface(input clk,
                       input rst,
+                      input CacheEnable,
                       input[15:0] PipelineDataIn, // From pipeline stage
                       input[15:0] PipelineAddressIn,
+                      input PipelineWriteEnable,
                       input[15:0] MemoryDataIn, // From memory
-                      input[15:0] MemoryAddressIn,
-                      input CacheWriteEnable,
                       input MemoryStall,
                       output[15:0] PipelineDataOut, // To pipeline stage
                       output Stall,
@@ -19,37 +19,40 @@ module CacheInterface(input clk,
        NewFsmWriteDataArray,
        OldFsmWriteMetaDataArray,
        NewFsmWriteMetaDataArray,
-       CacheWriteDataArray;
-  wire [15:0] OldFsmWriteMemoryAddress,
-              NewFsmWriteMemoryAddress,
+       CacheWriteDataArray,
+       _Miss,
+       Miss;
+  wire [15:0] OldFsmCacheAddress,
+              NewFsmCacheAddress,
               CacheDataIn,
               CacheAddressIn;
 
   dff FsmBusyReg(.q(OldFsmBusy),
                  .d(NewFsmBusy),
-                 .wen(1'b1),
+                 .wen(CacheEnable),
                  .clk(clk),
                  .rst(rst));
   dff FsmWriteDataArrayReg(.q(OldFsmWriteDataArray),
                            .d(NewFsmWriteDataArray),
-                           .wen(1'b1),
+                           .wen(CacheEnable),
                            .clk(clk),
                            .rst(rst));
   dff FsmWriteMetaDataArrayReg(.q(OldFsmWriteMetaDataArray),
                                .d(NewFsmWriteMetaDataArray),
-                               .wen(1'b1),
+                               .wen(CacheEnable),
                                .clk(clk),
                                .rst(rst));
-  Register_16 FsmWriteMemoryAddressReg(.clk(clk),
-                                       .rst(rst),
-                                       .In(NewFsmWriteMemoryAddress),
-                                       .WriteEnable(1'b1),
-                                       .Out(OldFsmWriteMemoryAddress));
+  Register_16 FsmCacheAddressReg(.clk(clk),
+                                 .rst(rst),
+                                 .In(NewFsmCacheAddress),
+                                 .WriteEnable(CacheEnable),
+                                 .Out(OldFsmCacheAddress));
 
   assign CacheDataIn = OldFsmBusy ? MemoryDataIn : PipelineDataIn;
-  assign CacheAddressIn = OldFsmBusy ? MemoryAddressIn : PipelineAddressIn;
+  assign CacheAddressIn = OldFsmBusy ? OldFsmCacheAddress 
+                                     : PipelineAddressIn;
   assign CacheWriteDataArray = OldFsmBusy ? OldFsmWriteDataArray 
-                                          : CacheWriteEnable;
+                                          : CacheEnable & PipelineWriteEnable;
 
   Cache_2KB Cache(.clk(clk),
                   .rst(rst),
@@ -57,8 +60,10 @@ module CacheInterface(input clk,
                   .AddressIn(CacheAddressIn),
                   .WriteData(CacheWriteDataArray),
                   .WriteMetaData(OldFsmWriteMetaDataArray),
-                  .DataOut(PipelineDataOut),
-                  .Miss(Miss));
+                  .DataOut(PipelineDataOut), // Outputs
+                  .Miss(_Miss));
+
+  assign Miss = CacheEnable & _Miss;
 
   cache_fill_FSM CacheController(.clk(clk), // Inputs
                                  .rst_n(~rst),
@@ -67,10 +72,12 @@ module CacheInterface(input clk,
                                  .fsm_busy(NewFsmBusy), // Outputs
                                  .write_data_array(NewFsmWriteDataArray),
                                  .write_tag_array(NewFsmWriteMetaDataArray),
-                                 .memory_address(NewFsmWriteMemoryAddress));
+                                 .memory_address(NewFsmMemoryAddress),
+                                 .memory_request(NewFsmMemoryRequest),
+                                 .cache_address(NewFsmCacheAddress));
 
   assign Stall = Miss | NewFsmBusy;
-  assign MemoryRequest = NewFsmBusy;
-  assign MemoryAddressOut = NewFsmWriteMemoryAddress;
+  assign MemoryRequest = NewFsmMemoryRequest;
+  assign MemoryAddressOut = NewFsmMemoryAddress;
 
 endmodule

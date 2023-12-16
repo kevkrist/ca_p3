@@ -8,8 +8,6 @@ module InstructionFetch(clk, // INPUTS
                         PC_Branch,
                         MemStall, // From memory
                         MemData,
-                        MemAddress,
-                        MemCacheWriteEnable,
                         Instruction, // OUTPUTS
                         NextPC,
                         hlt,
@@ -31,11 +29,11 @@ module InstructionFetch(clk, // INPUTS
 
   CacheInterface InstructionCache(.clk(clk), // INPUTS
                                   .rst(rst),
+                                  .CacheEnable(1'b1 & ~PC_Disrupt),
                                   .PipelineDataIn(16'h000),
                                   .PipelineAddressIn(PC),
+                                  .PipelineWriteEnable(1'b0),
                                   .MemoryDataIn(MemData),
-                                  .MemoryAddressIn(MemAddress),
-                                  .CacheWriteEnable(MemCacheWriteEnable),
                                   .MemoryStall(MemStall),
                                   .PipelineDataOut(_Instruction), // OUTPUTS
                                   .Stall(CacheStall),
