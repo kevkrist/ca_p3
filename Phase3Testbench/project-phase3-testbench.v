@@ -56,8 +56,8 @@ module cpu_ptb();
       DCacheReq_count = 0;
       ICacheReq_count = 0;
 
-      trace_file = $fopen("TestOutput/Test1/verilogsim.ptrace");
-      sim_log_file = $fopen("TestOutput/Test1/verilogsim.plog");
+      trace_file = $fopen("TestOutput/Test2/verilogsim.ptrace");
+      sim_log_file = $fopen("TestOutput/Test2/verilogsim.plog");
       
    end
 
@@ -175,7 +175,7 @@ module cpu_ptb();
    assign Inst = DUT.IF_Instruction;
    //Instruction fetched in the current cycle
    
-   assign RegWrite = DUT.WB_RF_Wr;
+   assign RegWrite = DUT.GlobalStall ? 1'b0 : DUT.WB_RF_Wr;
    // Is register file being written to in this cycle, one bit signal (1 means yes, 0 means no)
   
    assign WriteRegister = DUT.WB_RegWrite;
@@ -184,10 +184,10 @@ module cpu_ptb();
    assign WriteData = DUT.WB_WriteData;
    // If above is true, this should hold the Data being written to the register. (16 bits)
    
-   assign MemRead =  (DUT.MEM_En & ~DUT.MEM_Wr);
+   assign MemRead = DUT.GlobalStall ? 1'b0 : (DUT.MEM_En & ~DUT.MEM_Wr);
    // Is memory being read from, in this cycle. one bit signal (1 means yes, 0 means no)
    
-   assign MemWrite = (DUT.MEM_En & DUT.MEM_Wr);
+   assign MemWrite = DUT.GlobalStall ? 1'b0 : (DUT.MEM_En & DUT.MEM_Wr);
    // Is memory being written to, in this cycle (1 bit signal)
    
    assign MemAddress = DUT.MEM_ALUOut;

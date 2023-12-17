@@ -22,13 +22,6 @@ Top level modules:
 	PCRg
 	FlagRg
 
-} {} {}} I:/CaIntro/ca_p3/src/Cpu/cpu.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Cpu/cpu.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module cpu
-
-Top level modules:
-	cpu
-
 } {} {}} I:/CaIntro/ca_p3/src/Shifter/Mux_3_1.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Shifter/Mux_3_1.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling module Mux_3_1
@@ -57,6 +50,13 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	CPU_control
 
+} {} {}} I:/CaIntro/ca_p3/src/Memory/MemoryInterface.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Memory/MemoryInterface.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module MemoryInterface
+
+Top level modules:
+	MemoryInterface
+
 } {} {}} I:/CaIntro/ca_p3/src/Shifter/ShiftRightArithmetic.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Shifter/ShiftRightArithmetic.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling module ShiftRightArithmetic
@@ -64,12 +64,28 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	ShiftRightArithmetic
 
-} {} {}} I:/CaIntro/ca_p3/src/Memory/MemoryInterface.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Memory/MemoryInterface.v
+} {} {}} I:/CaIntro/ca_p3/src/Memory/multicycle_memory.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Memory/multicycle_memory.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module MemoryInterface
+-- Compiling module memory4c
 
 Top level modules:
-	MemoryInterface
+	memory4c
+
+} {} {}} I:/CaIntro/ca_p3/src/Cache/MetaDataArray.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Cache/MetaDataArray.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module MetaDataArray
+-- Compiling module MBlock
+-- Compiling module MCell
+
+Top level modules:
+	MetaDataArray
+
+} {} {}} I:/CaIntro/ca_p3/src/ALU/Alu.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/ALU/Alu.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module Alu
+
+Top level modules:
+	Alu
 
 } {} {}} I:/CaIntro/ca_p3/src/Registers/Register_8.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Registers/Register_8.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -86,28 +102,12 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	BitCell
 
-} {} {}} I:/CaIntro/ca_p3/src/Memory/multicycle_memory.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Memory/multicycle_memory.v
+} {} {}} I:/CaIntro/ca_p3/src/Adder/Adder_16bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Adder/Adder_16bit.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module memory4c
+-- Compiling module Adder_16bit
 
 Top level modules:
-	memory4c
-
-} {} {}} I:/CaIntro/ca_p3/src/ALU/Alu.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/ALU/Alu.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module Alu
-
-Top level modules:
-	Alu
-
-} {} {}} I:/CaIntro/ca_p3/src/Cache/MetaDataArray.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Cache/MetaDataArray.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module MetaDataArray
--- Compiling module MBlock
--- Compiling module MCell
-
-Top level modules:
-	MetaDataArray
+	Adder_16bit
 
 } {} {}} I:/CaIntro/ca_p3/src/Reducer/RED.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Reducer/RED.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -115,13 +115,6 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 
 Top level modules:
 	RED
-
-} {} {}} I:/CaIntro/ca_p3/src/Adder/Adder_16bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Adder/Adder_16bit.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module Adder_16bit
-
-Top level modules:
-	Adder_16bit
 
 } {} {}} I:/CaIntro/ca_p3/src/Cache/Cache_2KB.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Cache/Cache_2KB.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -137,13 +130,6 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	IDEXPipelineRegister
 
-} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/IF/InstructionFetch.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/IF/InstructionFetch.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module InstructionFetch
-
-Top level modules:
-	InstructionFetch
-
 } {} {}} I:/CaIntro/ca_p3/src/PCControl/pc_control.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PCControl/pc_control.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling module PC_Control
@@ -151,12 +137,12 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	PC_Control
 
-} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/ID/IFIDPipelineRegister.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/ID/IFIDPipelineRegister.v
+} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/IF/InstructionFetch.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/IF/InstructionFetch.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module IFIDPipelineRegister
+-- Compiling module InstructionFetch
 
 Top level modules:
-	IFIDPipelineRegister
+	InstructionFetch
 
 } {} {}} I:/CaIntro/ca_p3/src/Cache/CacheInterface.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Cache/CacheInterface.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -165,12 +151,12 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	CacheInterface
 
-} {} {}} I:/CaIntro/ca_p3/src/Shifter/ShiftLeftLogical.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Shifter/ShiftLeftLogical.v
+} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/MEM/EXMEM_PipelineRegister.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/MEM/EXMEM_PipelineRegister.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module ShiftLeftLogical
+-- Compiling module EXMEM_PipelineRegister
 
 Top level modules:
-	ShiftLeftLogical
+	EXMEM_PipelineRegister
 
 } {} {}} I:/CaIntro/ca_p3/src/Reducer/CLA_9bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Reducer/CLA_9bit.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -179,12 +165,12 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	CLA_9bit
 
-} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/MEM/EXMEM_PipelineRegister.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/MEM/EXMEM_PipelineRegister.v
+} {} {}} I:/CaIntro/ca_p3/src/Shifter/ShiftLeftLogical.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Shifter/ShiftLeftLogical.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module EXMEM_PipelineRegister
+-- Compiling module ShiftLeftLogical
 
 Top level modules:
-	EXMEM_PipelineRegister
+	ShiftLeftLogical
 
 } {} {}} I:/CaIntro/ca_p3/Phase3Testbench/project-phase3-testbench.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/Phase3Testbench/project-phase3-testbench.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -192,6 +178,34 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 
 Top level modules:
 	cpu_ptb
+
+} {} {}} I:/CaIntro/ca_p3/src/Adder/Adder_4bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Adder/Adder_4bit.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module Adder_4bit
+
+Top level modules:
+	Adder_4bit
+
+} {} {}} I:/CaIntro/ca_p3/src/RegisterFile/Register.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/RegisterFile/Register.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module Rg
+
+Top level modules:
+	Rg
+
+} {} {}} I:/CaIntro/ca_p3/src/RegisterFile/RegisterFile.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/RegisterFile/RegisterFile.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module RegisterFile
+
+Top level modules:
+	RegisterFile
+
+} {} {}} I:/CaIntro/ca_p3/src/Shifter/RotateRight.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Shifter/RotateRight.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module RotateRight
+
+Top level modules:
+	RotateRight
 
 } {} {}} I:/CaIntro/ca_p3/src/Shifter/Shifter.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Shifter/Shifter.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -201,61 +215,12 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	Shifter
 
-} {} {}} I:/CaIntro/ca_p3/src/Shifter/RotateRight.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Shifter/RotateRight.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module RotateRight
-
-Top level modules:
-	RotateRight
-
-} {} {}} I:/CaIntro/ca_p3/src/RegisterFile/RegisterFile.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/RegisterFile/RegisterFile.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module RegisterFile
-
-Top level modules:
-	RegisterFile
-
-} {} {}} I:/CaIntro/ca_p3/src/RegisterFile/Register.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/RegisterFile/Register.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module Rg
-
-Top level modules:
-	Rg
-
-} {} {}} I:/CaIntro/ca_p3/src/Adder/Adder_4bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Adder/Adder_4bit.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module Adder_4bit
-
-Top level modules:
-	Adder_4bit
-
 } {} {}} I:/CaIntro/ca_p3/src/Registers/Register_16.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Registers/Register_16.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling module Register_16
 
 Top level modules:
 	Register_16
-
-} {} {}} I:/CaIntro/ca_p3/src/Reducer/CLA_4bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Reducer/CLA_4bit.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module CLA_4bit
-
-Top level modules:
-	CLA_4bit
-
-} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/ID/ControlHazard.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/ID/ControlHazard.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module ControlHazard
-
-Top level modules:
-	ControlHazard
-
-} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/EX/Execute.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/EX/Execute.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module Execute
-
-Top level modules:
-	Execute
 
 } {} {}} I:/CaIntro/ca_p3/src/Cache/CacheController.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Cache/CacheController.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -264,12 +229,26 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	cache_fill_FSM
 
-} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/ID/DataHazard.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/ID/DataHazard.v
+} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/EX/Execute.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/EX/Execute.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module DataHazard
+-- Compiling module Execute
 
 Top level modules:
-	DataHazard
+	Execute
+
+} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/ID/ControlHazard.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/ID/ControlHazard.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module ControlHazard
+
+Top level modules:
+	ControlHazard
+
+} {} {}} I:/CaIntro/ca_p3/src/Reducer/CLA_4bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Reducer/CLA_4bit.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module CLA_4bit
+
+Top level modules:
+	CLA_4bit
 
 } {} {}} I:/CaIntro/ca_p3/src/Cache/DataArray.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Cache/DataArray.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -281,6 +260,13 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	DataArray
 
+} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/ID/DataHazard.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/ID/DataHazard.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module DataHazard
+
+Top level modules:
+	DataHazard
+
 } {} {}} I:/CaIntro/ca_p3/src/Registers/Register_2.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Registers/Register_2.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling module Register_2
@@ -288,40 +274,12 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	Register_2
 
-} {} {}} I:/CaIntro/ca_p3/src/Shifter/Mux_3_1_Array.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Shifter/Mux_3_1_Array.v
+} {} {}} I:/CaIntro/ca_p3/src/Adder/Adder_1bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Adder/Adder_1bit.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module Mux_3_1_Array
+-- Compiling module Adder_1bit
 
 Top level modules:
-	Mux_3_1_Array
-
-} {} {}} I:/CaIntro/ca_p3/src/Registers/Register_3.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Registers/Register_3.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module Register_3
-
-Top level modules:
-	Register_3
-
-} {} {}} I:/CaIntro/ca_p3/src/RegisterFile/WriteDecoder_4_16.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/RegisterFile/WriteDecoder_4_16.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module WriteDecoder_4_16
-
-Top level modules:
-	WriteDecoder_4_16
-
-} {} {}} I:/CaIntro/ca_p3/src/RegisterFile/D-Flip-Flop.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/RegisterFile/D-Flip-Flop.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module dff
-
-Top level modules:
-	dff
-
-} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/WB/MEMWB_PipelineRegister.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/WB/MEMWB_PipelineRegister.v
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module MEMWB_PipelineRegister
-
-Top level modules:
-	MEMWB_PipelineRegister
+	Adder_1bit
 
 } {} {}} I:/CaIntro/ca_p3/src/PipelineStages/ID/InstructionDecode.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/ID/InstructionDecode.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
@@ -330,11 +288,39 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	ID
 
-} {} {}} I:/CaIntro/ca_p3/src/Adder/Adder_1bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Adder/Adder_1bit.v
+} {} {}} I:/CaIntro/ca_p3/src/PipelineStages/WB/MEMWB_PipelineRegister.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/PipelineStages/WB/MEMWB_PipelineRegister.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling module Adder_1bit
+-- Compiling module MEMWB_PipelineRegister
 
 Top level modules:
-	Adder_1bit
+	MEMWB_PipelineRegister
+
+} {} {}} I:/CaIntro/ca_p3/src/RegisterFile/D-Flip-Flop.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/RegisterFile/D-Flip-Flop.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module dff
+
+Top level modules:
+	dff
+
+} {} {}} I:/CaIntro/ca_p3/src/RegisterFile/WriteDecoder_4_16.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/RegisterFile/WriteDecoder_4_16.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module WriteDecoder_4_16
+
+Top level modules:
+	WriteDecoder_4_16
+
+} {} {}} I:/CaIntro/ca_p3/src/Registers/Register_3.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Registers/Register_3.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module Register_3
+
+Top level modules:
+	Register_3
+
+} {} {}} I:/CaIntro/ca_p3/src/Shifter/Mux_3_1_Array.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Shifter/Mux_3_1_Array.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module Mux_3_1_Array
+
+Top level modules:
+	Mux_3_1_Array
 
 } {} {}}

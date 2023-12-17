@@ -1,4 +1,6 @@
 // Cach controller FSM
+// The controller must handle the transfer of 8 2B chunks to deliver a full
+// cache block to the cache
 // author: Kevin Kristensen
 module cache_fill_FSM(clk, // Inputs
                       rst_n,
@@ -97,7 +99,7 @@ module cache_fill_FSM(clk, // Inputs
       1: begin // Currently in wait state.
         casex(cur_count)
           // Four cycles have elapsed. Memory is available to write to cache.
-          16'h00?4, 16'h00?8, 16'h00?c, 16'h0010: begin
+          16'h00?3, 16'h00?7, 16'h00?b, 16'h000f: begin
             fsm_busy = 1'b1; // Outputs
             write_data_array = 1'b1;
             write_tag_array = 1'b0;
@@ -110,7 +112,7 @@ module cache_fill_FSM(clk, // Inputs
             new_address = add_address;
             memory_request = 1'b1;
           end
-          16'h0020: begin // Memory transfer completed. Switch to idle state.
+          16'h001f: begin // Memory transfer completed. Switch to idle state.
             fsm_busy = 1'b0; // Outputs
             write_data_array = 1'b1;
             write_tag_array = 1'b1;

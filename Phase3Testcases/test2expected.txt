@@ -1,0 +1,48 @@
+(1) LLB R1, 0x51 
+            loads R1 with 0x??51
+            I-Cache miss to load next 8 instructions (32 cycles)
+(2) LHB R1, 0x51
+            loads R1 with 0x5151
+(3) LLB R2, 0xB0
+            loads R2 with 0x??B0
+(4) LHB R2, 0x00
+            loads R2 with 0x00B0
+(5) LLB R3, 0x04
+            loads R3 with 0x??04
+(6) LHB R3, 0x00
+            loads R3 with 0x0004
+(7) SW R1, R2, 2
+            stores R1 (0x5151) at address 0x00B4
+            RF bypassing to receive R2
+            D-Cache miss (32 cycles) to load word addresses: 0x00B0 - 0x00BF,
+            but AFTER the I-Cache miss on instruction 9
+(8) ADD R5, R2, R3
+            R5 = 0x00B4
+            MEM/EX forwarding to receive R3
+(9) LW R4, R5, 0
+            loads R4 with data at address 0x00B4 (R4 <- 0x5151) (D-Cache hit)
+            EX/EX forwarding to receive R5 in EX stage
+            I-Cache miss to load next 8 instructions (32 cycles)
+(11) PADDSB R5, R4, R2
+            R5 = 0x5141
+            Load-to-use stall with MEM/EX forwarding to receive R4
+(12) RED R5, R5, R5       
+            R5 = 0x????
+            EX/EX forwarding to receive R5
+(13) HLT           
+            halt program
+
+The expected trace is thus:
+REG:  0 VALUE: 0x0000
+REG:  1 VALUE: 0x0051
+REG:  1 VALUE: 0x5151
+REG:  2 VALUE: 0x00b0
+REG:  2 VALUE: 0x00b0
+REG:  3 VALUE: 0x0004
+REG:  3 VALUE: 0x0004
+STORE: ADDR: 0x00b4 VALUE: 0x5151
+REG:  5 VALUE: 0x00b4
+LOAD: ADDR: 0x00b4 VALUE: 0x5151
+REG:  4 VALUE: 0x5151
+REG:  5 VALUE: 0x5141
+REG:  5 VALUE: 0x????

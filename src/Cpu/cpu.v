@@ -142,7 +142,6 @@ module cpu(clk, rst_n, hlt, pc);
             .MX_Reg1(IDEX_MX_Reg1),
             .MX_Reg2(IDEX_MX_Reg2));
   // If noop is inserted, disable writing to the register file
-  // (not strictly necessary, but makes the trace cleaner)
   assign IDEX_RF_Wr = IDEX_Noop ? 1'b0 : _IDEX_RF_Wr;
 
   // Execute

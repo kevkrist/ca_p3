@@ -14,7 +14,7 @@ module Cache_2KB(input clk,
                  output[15:0] DataOut,
                  output Miss);
 
-  wire Way0Hit, Way1Hit, _Miss, DWriteEnable0, DWriteEnable1;
+  wire Way0Hit, Way1Hit, DWriteEnable0, DWriteEnable1;
   wire [2:0] WordOffset;
   wire [5:0] TagIn, Tag0, Tag1, BlockIndex;
   reg [63:0] BlockEnable;
@@ -25,10 +25,6 @@ module Cache_2KB(input clk,
   // Get block index, word offset
   assign WordOffset = AddressIn[3:1];
   assign BlockIndex = AddressIn[9:4];
-  //assign BlockEnable = {64{1'b0}};
-  //assign BlockEnable[BlockIndex] = 1'b1; 
-  // assign WordEnable = {8{1'b0}};
-  // assign WordEnable[WordOffset] = 1'b1;
   assign TagIn = AddressIn[15:10];
   assign MetaDataIn = {1'b0, 1'b1, TagIn};
 
@@ -48,7 +44,7 @@ module Cache_2KB(input clk,
   end
   always @(BlockIndex) begin
     BlockEnable = {64{1'b0}};
-    case(WordOffset)
+    case(BlockIndex)
       0: BlockEnable[0] = 1'b1;
       1: BlockEnable[1] = 1'b1;
       2: BlockEnable[2] = 1'b1;
@@ -128,10 +124,10 @@ module Cache_2KB(input clk,
   // Determine if there is a cache miss
   assign Tag0 = MetaData0[5:0];
   assign Tag1 = MetaData1[5:0];
-  assign Way0Hit = (Tag0 == TagIn) & MetaData0[6];
+  assign Way0Hit = WriteMetaData ? 1'b0 : (Tag0 == TagIn) & MetaData0[6];
   assign Way1Hit = (Tag1 == TagIn) & MetaData1[6];
-  assign _Miss = ~(Way1Hit | Way0Hit);
-  assign DWriteEnable0 = WriteData & Way0Hit;
+  assign Miss = ~(Way1Hit | Way0Hit);
+  assign DWriteEnable0 = WriteData & ~Way1Hit;
   assign DWriteEnable1 = WriteData & Way1Hit;
 
   DataArray DA(.clk(clk), 

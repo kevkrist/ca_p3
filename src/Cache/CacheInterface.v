@@ -15,15 +15,13 @@ module CacheInterface(input clk,
 
   wire OldFsmBusy, 
        NewFsmBusy, 
-       OldFsmWriteDataArray, 
        NewFsmWriteDataArray,
-       OldFsmWriteMetaDataArray,
        NewFsmWriteMetaDataArray,
        CacheWriteDataArray,
+       CacheWriteMetaDataArray,
        _Miss,
        Miss;
-  wire [15:0] OldFsmCacheAddress,
-              NewFsmCacheAddress,
+  wire [15:0] NewFsmCacheAddress,
               NewFsmMemoryAddress,
               CacheDataIn,
               CacheAddressIn;
@@ -33,34 +31,21 @@ module CacheInterface(input clk,
                  .wen(CacheEnable),
                  .clk(clk),
                  .rst(rst));
-  dff FsmWriteDataArrayReg(.q(OldFsmWriteDataArray),
-                           .d(NewFsmWriteDataArray),
-                           .wen(CacheEnable),
-                           .clk(clk),
-                           .rst(rst));
-  dff FsmWriteMetaDataArrayReg(.q(OldFsmWriteMetaDataArray),
-                               .d(NewFsmWriteMetaDataArray),
-                               .wen(CacheEnable),
-                               .clk(clk),
-                               .rst(rst));
-  Register_16 FsmCacheAddressReg(.clk(clk),
-                                 .rst(rst),
-                                 .In(NewFsmCacheAddress),
-                                 .WriteEnable(CacheEnable),
-                                 .Out(OldFsmCacheAddress));
 
   assign CacheDataIn = OldFsmBusy ? MemoryDataIn : PipelineDataIn;
-  assign CacheAddressIn = OldFsmBusy ? OldFsmCacheAddress 
+  assign CacheAddressIn = OldFsmBusy ? NewFsmCacheAddress 
                                      : PipelineAddressIn;
-  assign CacheWriteDataArray = OldFsmBusy ? OldFsmWriteDataArray 
+  assign CacheWriteDataArray = OldFsmBusy ? NewFsmWriteDataArray 
                                           : CacheEnable & PipelineWriteEnable;
+  assign CacheWriteMetaDataArray = OldFsmBusy ? NewFsmWriteMetaDataArray
+                                              : 1'b0;
 
   Cache_2KB Cache(.clk(clk),
                   .rst(rst),
                   .DataIn(CacheDataIn),
                   .AddressIn(CacheAddressIn),
                   .WriteData(CacheWriteDataArray),
-                  .WriteMetaData(OldFsmWriteMetaDataArray),
+                  .WriteMetaData(CacheWriteMetaDataArray),
                   .DataOut(PipelineDataOut), // Outputs
                   .Miss(_Miss));
 
