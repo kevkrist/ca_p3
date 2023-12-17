@@ -1,0 +1,55 @@
+(1) LLB R1, 0x02 
+            loads R1 with 0x??02
+            I-Cache miss to load next 8 instructions (32 cycles)
+(2) LHB R1, 0x00
+            loads R1 with 0x0002
+(3) LLB R2, 0x01
+            loads R2 with 0x??01
+(4) LHB R2, 0x00
+            loads R2 with 0x0001
+(5) LLB R6, 0x04
+            loads R6 with 0x??04
+(6) LHB R6, 0x00
+            loads R6 with 0x004
+(7) SUB R1, R1, R2
+            R1 = 0x0001
+            RF bypassing to receive R2
+(8) PCS R5
+            R5 = 0x0010
+(9) B 001, b1
+            does not branch to b1, since Z = 0 (SUB in (7) is nonzero)
+            I-Cache miss to load next 8 instructions (32 cycles)
+(10) BR 111, R6
+            branches unconditionally to instruction address [R6] = 0x0004
+            The succeding HLT instruction is speculatively executed, but
+            flushed in ID
+(3...6)     R2 = 0x0001, R6 = 0x0004
+(7) SUB R1, R1, R2       
+            R1 = 0x0000
+(8) PCS R5
+            R5 = 0x0010
+(9) B 001, b1
+            branches to b1, sinze Z = 1 (SUB in last (7) is zero)
+            The succeeding BR instruction is speculatively executed, but
+            flushed in ID
+(12) ADD R4, R6, R2
+            R4 = 0x0005
+(13) HLT           
+            halt program
+
+The expected trace is thus:
+REG:  1 VALUE: 0x0002
+REG:  1 VALUE: 0x0002
+REG:  2 VALUE: 0x0001
+REG:  2 VALUE: 0x0001
+REG:  6 VALUE: 0x0004
+REG:  6 VALUE: 0x0004
+REG:  1 VALUE: 0x0001
+REG:  5 VALUE: 0x0010
+REG:  2 VALUE: 0x0001
+REG:  2 VALUE: 0x0001
+REG:  6 VALUE: 0x0004
+REG:  6 VALUE: 0x0004
+REG:  1 VALUE: 0x0000
+REG:  5 VALUE: 0x0010
+REG:  4 VALUE: 0x0005

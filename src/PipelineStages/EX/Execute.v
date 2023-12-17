@@ -23,7 +23,7 @@ module Execute (
   wire [15:0] ALUin1, ALUin2, MtoXforward_Data;
 
   assign MtoXforward_Data = (WB_Opcode == 4'b1000) ? MtoXforward_Data_Mem
-                                                : MtoXforward_Data_ALU;
+                                                   : MtoXforward_Data_ALU;
   
   // Muxes (EX-EX forwarding has higher priority)
   assign ALUin1 = (XtoXforward_En & XX_Reg1) ? XtoXforward_Data 

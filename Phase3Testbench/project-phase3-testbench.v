@@ -56,8 +56,8 @@ module cpu_ptb();
       DCacheReq_count = 0;
       ICacheReq_count = 0;
 
-      trace_file = $fopen("TestOutput/Test2/verilogsim.ptrace");
-      sim_log_file = $fopen("TestOutput/Test2/verilogsim.plog");
+      trace_file = $fopen("TestOutput/Test3/verilogsim.ptrace");
+      sim_log_file = $fopen("TestOutput/Test3/verilogsim.plog");
       
    end
 

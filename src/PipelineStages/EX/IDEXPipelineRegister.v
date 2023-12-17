@@ -2,6 +2,7 @@
 // author: Kevin Kristensen
 module IDEXPipelineRegister(clk,
                             rst,
+                            NoopIn,
                             WriteEnable,
                             HltIn,
                             RegRead1In,
@@ -44,6 +45,7 @@ module IDEXPipelineRegister(clk,
 
   input clk, 
         rst, 
+        NoopIn,
         WriteEnable,
         Flag_WrIn, 
         RF_WrIn, 
@@ -77,45 +79,48 @@ module IDEXPipelineRegister(clk,
         MX_Reg1Out,
         MX_Reg2Out;
 
+  wire _rst;
+  assign _rst = rst | NoopIn;
+
   Register_16 RegRead1(.clk(clk), 
-                       .rst(rst), 
+                       .rst(_rst), 
                        .In(RegRead1In), 
                        .WriteEnable(WriteEnable), 
                        .Out(RegRead1Out));
   Register_16 RegRead2(.clk(clk), 
-                       .rst(rst), 
+                       .rst(_rst), 
                        .In(RegRead2In), 
                        .WriteEnable(WriteEnable), 
                        .Out(RegRead2Out));
   // RegWrite holds the value of the register to write to, NOT the data to 
   // write into it.
   Register_4 RegWrite(.clk(clk), 
-                      .rst(rst), 
+                      .rst(_rst), 
                       .In(RegWriteIn), 
                       .WriteEnable(WriteEnable), 
                       .Out(RegWriteOut));
   Register_4 SrcReg1(.clk(clk),
-                     .rst(rst),
+                     .rst(_rst),
                      .In(SrcReg1In),
                      .WriteEnable(WriteEnable),
                      .Out(SrcReg1Out));
   Register_16 PC(.clk(clk), 
-                 .rst(rst), 
+                 .rst(_rst), 
                  .In(PCIn), 
                  .WriteEnable(WriteEnable), 
                  .Out(PCOut));
   Register_8 Immediate(.clk(clk), 
-                       .rst(rst), 
+                       .rst(_rst), 
                        .In(ImmIn), 
                        .WriteEnable(WriteEnable), 
                        .Out(ImmOut));
   Register_4 Opcode(.clk(clk), 
-                    .rst(rst), 
+                    .rst(_rst), 
                     .In(OpcodeIn), 
                     .WriteEnable(WriteEnable), 
                     .Out(OpcodeOut));
   Register_2 WB_Select(.clk(clk), 
-                       .rst(rst), 
+                       .rst(_rst), 
                        .In(WB_SelectIn), 
                        .WriteEnable(WriteEnable), 
                        .Out(WB_SelectOut));
@@ -124,55 +129,55 @@ module IDEXPipelineRegister(clk,
               .d(Flag_WrIn),
               .wen(WriteEnable),
               .clk(clk),
-              .rst(rst));
+              .rst(_rst));
   dff RF_Wr(.q(RF_WrOut),
             .d(RF_WrIn),
             .wen(WriteEnable),
             .clk(clk),
-            .rst(rst));
+            .rst(_rst));
   dff Mem_En(.q(Mem_EnOut),
              .d(Mem_EnIn),
              .wen(WriteEnable),
              .clk(clk),
-             .rst(rst));
+             .rst(_rst));
   dff Mem_Wr(.q(Mem_WrOut),
              .d(Mem_WrIn),
              .wen(WriteEnable),
              .clk(clk),
-             .rst(rst));
+             .rst(_rst));
   dff Hlt(.q(HltOut),
           .d(HltIn),
           .wen(WriteEnable),
           .clk(clk),
-          .rst(rst));
+          .rst(_rst));
   dff XtoXforward_En(.q(XtoXforward_EnOut),
                      .d(XtoXforward_EnIn),
                      .wen(WriteEnable),
                      .clk(clk),
-                     .rst(rst));
+                     .rst(_rst));
   dff MtoXforward_En(.q(MtoXforward_EnOut),
                      .d(MtoXforward_EnIn),
                      .wen(WriteEnable),
                      .clk(clk),
-                     .rst(rst));
+                     .rst(_rst));
   dff XX_Reg1(.q(XX_Reg1Out), 
               .d(XX_Reg1In), 
               .wen(WriteEnable), 
               .clk(clk), 
-              .rst(rst));
+              .rst(_rst));
   dff XX_Reg2(.q(XX_Reg2Out), 
              .d(XX_Reg2In), 
              .wen(WriteEnable), 
              .clk(clk), 
-             .rst(rst));
+             .rst(_rst));
   dff MX_Reg1(.q(MX_Reg1Out), 
               .d(MX_Reg1In), 
               .wen(WriteEnable), 
               .clk(clk), 
-              .rst(rst));
+              .rst(_rst));
   dff MX_Reg2(.q(MX_Reg2Out), 
               .d(MX_Reg2In), 
               .wen(WriteEnable), 
               .clk(clk), 
-              .rst(rst));
+              .rst(_rst));
 endmodule

@@ -27,7 +27,7 @@
             R5 = 0x5141
             Load-to-use stall with MEM/EX forwarding to receive R4
 (12) RED R5, R5, R5       
-            R5 = 0x????
+            R5 = 0x00A4
             EX/EX forwarding to receive R5
 (13) HLT           
             halt program
@@ -44,5 +44,5 @@ STORE: ADDR: 0x00b4 VALUE: 0x5151
 REG:  5 VALUE: 0x00b4
 LOAD: ADDR: 0x00b4 VALUE: 0x5151
 REG:  4 VALUE: 0x5151
-REG:  5 VALUE: 0x5141
-REG:  5 VALUE: 0x????
+REG:  5 VALUE: 0x5101
+REG:  5 VALUE: 0x00A4

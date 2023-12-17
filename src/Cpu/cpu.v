@@ -59,9 +59,9 @@ module cpu(clk, rst_n, hlt, pc);
        ID_Hlt,
        IDEX_Mem_En, 
        IDEX_Mem_Wr, 
-       IDEX_FlagWr, 
+       IDEX_Flag_Wr, 
        ID_Noop,
-       _IDEX_RF_Wr,
+       EX_Noop,
        IDEX_RF_Wr,
        IDEX_MtoXforward_En,
        IDEX_XtoXforward_En,
@@ -69,7 +69,6 @@ module cpu(clk, rst_n, hlt, pc);
        IDEX_XX_Reg2,
        IDEX_MX_Reg1,
        IDEX_MX_Reg2,
-       IDEX_Noop,
        EX_Flag_Wr,
        EX_RF_Wr,
        MEM_RF_Wr;
@@ -95,14 +94,13 @@ module cpu(clk, rst_n, hlt, pc);
                             .HltIn(IF_hlt),
                             .InstructionIn(IF_Instruction),
                             .StallIn(IFID_Stall),
-                            .NoopIn(ID_Noop),
                             .PCIn(IF_PC),
+                            .NoopIn(ID_Noop),
                             .WriteEnable(~(IF_Stall|GlobalStall)),
                             .HltOut(ID_Hlt),
                             .InstructionOut(ID_Instruction),
                             .StallOut(ID_Stall),
-                            .PCOut(ID_PC),
-                            .NoopOut(IDEX_Noop));
+                            .PCOut(ID_PC));
 
   ID Decode(.clk(clk), // Inputs
             .rst(~rst_n),
@@ -121,7 +119,7 @@ module cpu(clk, rst_n, hlt, pc);
             .EXMEM_RF_Wr(MEM_RF_Wr),
             .IDEX_Mem_En(IDEX_Mem_En), // Outputs
             .IDEX_Mem_Wr(IDEX_Mem_Wr),
-            .IDEX_RF_Wr(_IDEX_RF_Wr),
+            .IDEX_RF_Wr(IDEX_RF_Wr),
             .IDEX_WB_Select(IDEX_WB_Select),
             .IDEX_Flag_Wr(IDEX_Flag_Wr),
             .IDEX_RegRead1(IDEX_RegRead1),
@@ -130,6 +128,7 @@ module cpu(clk, rst_n, hlt, pc);
             .IDEX_Imm(IDEX_Imm),
             .IDEX_Opcode(IDEX_Opcode),
             .ID_Noop(ID_Noop),
+            .EX_Noop(EX_Noop),
             .IDEX_SrcReg1(IDEX_SrcReg1),
             .IFID_Stall(IFID_Stall), 
             .IF_PCDisrupt(IF_PCDisrupt), 
@@ -141,8 +140,6 @@ module cpu(clk, rst_n, hlt, pc);
             .XX_Reg2(IDEX_XX_Reg2),
             .MX_Reg1(IDEX_MX_Reg1),
             .MX_Reg2(IDEX_MX_Reg2));
-  // If noop is inserted, disable writing to the register file
-  assign IDEX_RF_Wr = IDEX_Noop ? 1'b0 : _IDEX_RF_Wr;
 
   // Execute
   wire EX_Mem_En, 
@@ -167,6 +164,7 @@ module cpu(clk, rst_n, hlt, pc);
               MEM_ALUOut;
   IDEXPipelineRegister IDEX(.clk(clk),
                             .rst(~rst_n),
+                            .NoopIn(EX_Noop),
                             .WriteEnable(~GlobalStall),
                             .HltIn(ID_Hlt),
                             .RegRead1In(IDEX_RegRead1),
