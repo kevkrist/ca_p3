@@ -145,16 +145,16 @@ module ID(// INPUTS
                         .Stall(_Stall),
                         .StallWrite(IFID_Stall));
 
-  PC_Control PCCtrl(.Branch(Br),
+  PC_Control PCCtrl(.Branch(Br), // INPUTS
                     .BranchType(Instruction[13:12]),
                     .C(Instruction[11:9]),
                     .I(Instruction[8:0]),
                     .F(Flag),
                     .Reg(_RegRead1),
                     .PC_In(PC),
-                    .PC_Out(_PC));
+                    .PC_Out(_PC)); // OUTPUT
   // Only disrupt normal PC flow when branch is taken and instruction is not HLT
-  assign _PCDisrupt = ((_PC != _PC_2) & (_PC != PC)) ? 1'b1 
+  assign _PCDisrupt = _Stall ? 1'b0 : ((_PC != _PC_2) & (_PC != PC)) ? 1'b1 
                                                      : 1'b0;
 
   DataHazard DataHaz(.IDEX_RF_WrIn(IDEX_RF_WrIn), // Inputs

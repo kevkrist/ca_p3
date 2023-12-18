@@ -26,6 +26,22 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
 !s11f vlog 2021.2 2021.04, Apr 14 2021
 13
 !s112 1.1
@@ -57,10 +73,10 @@ n@_opt1
 R4
 R1
 T_opt2
-!s110 1702853080
-Vc?i5ZZJC7cbGVJUM:AKRT1
+!s110 1702942933
+V3b3LhhaXKmNOXabeUZ@5X2
 R2
-=1-089204da99c1-657f79d7-33-36ac
+=26-089204da99c1-6580d8d3-19a-29ec
 !s124 OEM10X73954 
 R5
 R3
@@ -389,22 +405,22 @@ R11
 R3
 n@control@hazard
 vcpu
-!s110 1702850549
+!s110 1702942361
 !i10b 1
-!s100 aPDT:0EnFBQPi8HOz_@QC2
-IVkPk[[oY]4@4Y`:bV^J_03
+!s100 OAJS:73fK`4?eEZLEz6513
+IAX2NW=hIB_f0j9Ga[Z1Id3
 R6
-w1702850408
+w1702942330
 8I:/CaIntro/ca_p3/src/Cpu/cpu.v
 FI:/CaIntro/ca_p3/src/Cpu/cpu.v
-!i122 129
-L0 3 330
+!i122 153
+L0 3 334
 R8
 R9
 r1
 !s85 0
 31
-!s108 1702850549.000000
+!s108 1702942361.000000
 !s107 I:/CaIntro/ca_p3/src/Cpu/cpu.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/CaIntro/ca_p3/src/Cpu/cpu.v|
 !i113 0
@@ -434,22 +450,22 @@ R11
 R3
 n@c@p@u_control
 vcpu_ptb
-!s110 1702847500
+!s110 1702942914
 !i10b 1
-!s100 <ReN2mdH<J`OibGXiMg;V0
-Ij]7KJ^_CX86[T9^nTBM4E1
+!s100 KVec_FXNPW7@C:ed]YG>W3
+I_^CT3L>8C@@TAQ7SWIzE82
 R6
-w1702847321
+w1702942901
 8I:/CaIntro/ca_p3/Phase3Testbench/project-phase3-testbench.v
 FI:/CaIntro/ca_p3/Phase3Testbench/project-phase3-testbench.v
-!i122 126
+!i122 158
 L0 1 218
 R8
 R9
 r1
 !s85 0
 31
-!s108 1702847499.000000
+!s108 1702942914.000000
 !s107 I:/CaIntro/ca_p3/Phase3Testbench/project-phase3-testbench.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/CaIntro/ca_p3/Phase3Testbench/project-phase3-testbench.v|
 !i113 0
@@ -479,22 +495,22 @@ R11
 R3
 n@data@array
 vDataHazard
-!s110 1702760271
+!s110 1702942356
 !i10b 1
-!s100 WcD2dY;JFO@aIQb?i8jPF0
-I:K9d;LS;_mzY9fnj>1H@b0
+!s100 nd5Z?fMWFzHWOoH;jM1Kf3
+I]eoa2MQ5d:hSQ5PG@eCo<0
 R6
-R21
+w1702940619
 8I:/CaIntro/ca_p3/src/PipelineStages/ID/DataHazard.v
 FI:/CaIntro/ca_p3/src/PipelineStages/ID/DataHazard.v
-!i122 65
-L0 4 44
+!i122 152
+L0 4 51
 R8
 R9
 r1
 !s85 0
 31
-!s108 1702760271.000000
+!s108 1702942355.000000
 !s107 I:/CaIntro/ca_p3/src/PipelineStages/ID/DataHazard.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/CaIntro/ca_p3/src/PipelineStages/ID/DataHazard.v|
 !i113 0
@@ -639,22 +655,22 @@ R11
 R3
 n@flag@rg
 vID
-!s110 1702853016
+!s110 1702933696
 !i10b 1
-!s100 kFmI>Mm8QzaGRG`G3>MXn2
-I]@8SD;_1klJY4J]DOZo]:2
+!s100 oHg2R19>Y<7N=4JH9mZK_3
+I<0=T:KPfnnIIOKMi>mB?Z1
 R6
-w1702853004
+w1702933671
 8I:/CaIntro/ca_p3/src/PipelineStages/ID/InstructionDecode.v
 FI:/CaIntro/ca_p3/src/PipelineStages/ID/InstructionDecode.v
-!i122 134
+!i122 144
 L0 17 170
 R8
 R9
 r1
 !s85 0
 31
-!s108 1702853016.000000
+!s108 1702933695.000000
 !s107 I:/CaIntro/ca_p3/src/PipelineStages/ID/InstructionDecode.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/CaIntro/ca_p3/src/PipelineStages/ID/InstructionDecode.v|
 !i113 0
@@ -800,22 +816,22 @@ R11
 R3
 n@m@e@m
 vmemory4c
-!s110 1702847488
+!s110 1702942920
 !i10b 1
-!s100 `:_c4dYIh;3zmL[GE_IRb3
-I7AK@=l40mj4Wm74G6SL@;0
+!s100 P9k^HB]OQAakCI0GoKVWe0
+IYTZ>^60bYLLoizWYcV<0m3
 R6
-w1702847341
+w1702942907
 8I:/CaIntro/ca_p3/src/Memory/multicycle_memory.v
 FI:/CaIntro/ca_p3/src/Memory/multicycle_memory.v
-!i122 124
+!i122 159
 L0 24 69
 R8
 R9
 r1
 !s85 0
 31
-!s108 1702847488.000000
+!s108 1702942920.000000
 !s107 I:/CaIntro/ca_p3/src/Memory/multicycle_memory.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/CaIntro/ca_p3/src/Memory/multicycle_memory.v|
 !i113 0
@@ -937,22 +953,22 @@ R11
 R3
 n@mux_3_1_@array
 vPC_Control
-!s110 1702760268
+!s110 1702937654
 !i10b 1
-!s100 Yfl<?QiR<Po8I8_fFDne=0
-IRG<Uh`8AV9kNa[N>7cX6i1
+!s100 7EOBn3bI7=F:za_g4@:<V3
+IkB?`CSjI_<C]:3XFRaHAm3
 R6
-R7
+w1702937644
 8I:/CaIntro/ca_p3/src/PCControl/pc_control.v
 FI:/CaIntro/ca_p3/src/PCControl/pc_control.v
-!i122 61
+!i122 149
 L0 12 64
 R8
 R9
 r1
 !s85 0
 31
-!s108 1702760268.000000
+!s108 1702937653.000000
 !s107 I:/CaIntro/ca_p3/src/PCControl/pc_control.v|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/CaIntro/ca_p3/src/PCControl/pc_control.v|
 !i113 0

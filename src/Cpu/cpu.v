@@ -155,7 +155,8 @@ module cpu(clk, rst_n, hlt, pc);
   wire [2:0] EX_Flag;
   wire [3:0] EX_SrcReg1, WB_Opcode;
   wire [7:0] EX_Imm;
-  wire [15:0] EX_RegRead1, 
+  wire [15:0] EX_RegRead1,
+              _EX_RegRead1,
               EX_RegRead2, 
               EX_PC, 
               EXMEM_ALUOut, 
@@ -226,6 +227,9 @@ module cpu(clk, rst_n, hlt, pc);
                   .In(EX_Flag), 
                   .WriteEnable(EX_Flag_Wr), 
                   .Out(ID_Flag));
+  // Special handling needed for data hazrd: LW, [Instruction], SW
+  assign _EX_RegRead1 = ((WB_Opcode == 4'b1000) & (EX_Opcode == 4'b1001)) 
+                         ? WB_MemOut : EX_RegRead1;
 
   // Memory
   wire MEM_Hlt, MEM_En, MEM_Wr;
@@ -243,7 +247,7 @@ module cpu(clk, rst_n, hlt, pc);
                                .WB_SelectIn(EX_WB_Select),
                                .OpcodeIn(EX_Opcode),
                                .ALUOut_In(EXMEM_ALUOut),
-                               .RegRead1_In(EX_RegRead1),
+                               .RegRead1_In(_EX_RegRead1),
                                .SrcReg1_In(EX_SrcReg1),
                                .PC_In(EX_PC),
                                .halt_Out(MEM_Hlt),
