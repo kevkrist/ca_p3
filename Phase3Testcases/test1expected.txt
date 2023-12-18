@@ -1,0 +1,44 @@
+(1) LLB R1, 0x51 
+            loads R1 with 0x??51
+            Cache miss to bring in the next 8 instructions (32 cycles)
+(2) LHB R1, 0x51
+            loads R1 with 0x5151
+(3) LLB R2, 0xB0
+            loads R2 with 0x??B0
+(4) LHB R2, 0xA0
+            loads R2 with 0xA0B0
+(5) ADD R3, R2, R1
+            stores R2 + R1 --> R3, R3 = 0xF201
+            RF bypassing should be happening
+            EX-EX forwarding for R2 should be happening
+(6) SUB R4, R1, R2
+            stores R1 - R2 --> R4, R4 = 0x7FFF (saturation)
+            MEM/EX forwarding to receive R2
+(7) XOR R6, R3, R4
+            stores R3 XOR R4 --> R6, R6 = 0x8DFE
+            EX/EX forwarding to receive R4
+            MEM/EX forwarding to receive R3
+(8) SLL R7, R5, 6
+            shift R5 left by 6 and store in R7, R7 = 0x0000
+(9) SRA R8, R6, 2
+            shift R6 right by 2 and store in R8, R8 = 0xE37F
+            MEM/EX forwarding to receive R6
+            Cache miss to bring in the next 8 instructions (32 cycles)
+(10) ROR R9, R8, 10
+            right rotate R8 by 10 and store in R9, R9 = 0x000
+            EX/EX forwarding to receive R8
+(11) HLT
+            halt program
+
+The expected trace is thus:
+REG:  0 VALUE: 0x0000
+REG:  1 VALUE: 0x0051
+REG:  1 VALUE: 0x5151
+REG:  2 VALUE: 0x00b0
+REG:  2 VALUE: 0xa0b0
+REG:  3 VALUE: 0xf201
+REG:  4 VALUE: 0x7fff
+REG:  6 VALUE: 0x8dfe
+REG:  7 VALUE: 0x0000
+REG:  8 VALUE: 0xe37f
+REG:  9 VALUE: 0xdff8

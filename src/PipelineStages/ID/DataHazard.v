@@ -3,12 +3,12 @@
 
 module DataHazard (input IDEX_RF_WrIn,
                    input [3:0] IDEX_RegWriteIn,
-                   input [3:0] IDEX_Opcode,
-                   input [3:0] ID_Opcode,
+                   input [3:0] IDEX_Opcode, // EX Opcode
+                   input [3:0] ID_Opcode, // Current Opcode
                    input [3:0] ID_SrcReg1,
                    input [3:0] ID_SrcReg2,
-                   input EXMEM_RF_WrIn,
-                   input [3:0] EXMEM_RegWriteIn,
+                   input EXMEM_RF_WrIn, // MEM RF write enable
+                   input [3:0] EXMEM_RegWriteIn, // MEM register to write
                    output XtoXforward_En,
                    output MtoXforward_En,
                    output stall,
@@ -18,7 +18,14 @@ module DataHazard (input IDEX_RF_WrIn,
                    output MX_Reg2);
 
   // Internal signals
-  wire loadOp, use1, use2, use_either, load_to_use, mx1, mx2, mx_either;
+  wire loadOp, 
+       use1, 
+       use2, 
+       use_either, 
+       load_to_use,
+       mx1, 
+       mx2, 
+       mx_either;
 
   // Determine if EX-EX forwarding is needed, or load-to-use stall
   assign loadOp = (IDEX_Opcode == 4'b1000); // LW in EX stage?

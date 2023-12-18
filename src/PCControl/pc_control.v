@@ -42,7 +42,7 @@ module PC_Control(Branch, BranchType, C, I, F, Reg, PC_In, PC_Out);
   // For convenience, choose between PC_Imm and Reg
   assign PC_Imm_Reg = (BranchType == 0) ? PC_Imm : Reg;
   
-  always @(Branch, BranchType, PC_2, PC_Imm_Reg, PC_In) begin
+  always @(Branch, BranchType, PC_2, PC_Imm_Reg, PC_In, F) begin
     case(Branch)
       0: begin
         PC_Out = PC_2; // no branch

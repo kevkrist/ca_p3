@@ -42,6 +42,7 @@ module ID(// INPUTS
           IDEX_Imm,
           IDEX_Opcode,
           ID_Noop,
+          EX_Noop,
           IDEX_SrcReg1,
           IFID_Stall, // This output is for IFID pipeline register
           IF_PCDisrupt, // These 3 outputs are sent to the IF stage
@@ -66,6 +67,7 @@ module ID(// INPUTS
          IF_PCDisrupt, 
          IF_Stall,
          ID_Noop,
+         EX_Noop,
          XtoXforward_En,
          MtoXforward_En,
          XX_Reg1,
@@ -81,10 +83,10 @@ module ID(// INPUTS
        _Stall, 
        _DStall, 
        _PCDisrupt, 
-       Dummy, 
-       _Noop, 
+       Dummy,
        __Stall, 
-       _XtoXforward_En;
+       _XtoXforward_En,
+       _EX_FlagWr;
   wire [3:0] _RegWrite, SrcReg1, SrcReg2;
   wire [15:0] _RegRead1, _RegRead2, __RegRead1, _PC, _PC_2;
 
@@ -98,7 +100,7 @@ module ID(// INPUTS
                    .B(16'h0002),
                    .Sub(1'b0));
 
-  CPU_control Ctrl(.opc(Instruction[15:12]),
+  CPU_control Ctrl(.instruction(Instruction),
                    .Br(Br),
                    .Mem_En(IDEX_Mem_En),
                    .Mem_Wr(IDEX_Mem_Wr),
@@ -106,6 +108,7 @@ module ID(// INPUTS
                    .WB_Select(IDEX_WB_Select),
                    .Flag_Wr(IDEX_Flag_Wr),
                    .Use_Top(_Use_Top));
+
   // If LLB/LHB, make first register read from bits [11:8]
   // (SrcReg2 ignored in this case)
   // If SW/LW, make second register read from bits [7:4]
@@ -142,16 +145,16 @@ module ID(// INPUTS
                         .Stall(_Stall),
                         .StallWrite(IFID_Stall));
 
-  PC_Control PCCtrl(.Branch(Br),
+  PC_Control PCCtrl(.Branch(Br), // INPUTS
                     .BranchType(Instruction[13:12]),
                     .C(Instruction[11:9]),
                     .I(Instruction[8:0]),
                     .F(Flag),
                     .Reg(_RegRead1),
                     .PC_In(PC),
-                    .PC_Out(_PC));
+                    .PC_Out(_PC)); // OUTPUT
   // Only disrupt normal PC flow when branch is taken and instruction is not HLT
-  assign _PCDisrupt = ((_PC != _PC_2) & (_PC != PC)) ? 1'b1 
+  assign _PCDisrupt = _Stall ? 1'b0 : ((_PC != _PC_2) & (_PC != PC)) ? 1'b1 
                                                      : 1'b0;
 
   DataHazard DataHaz(.IDEX_RF_WrIn(IDEX_RF_WrIn), // Inputs
@@ -173,10 +176,10 @@ module ID(// INPUTS
   // Hacky handling of unknown values and other final output assignments
   assign __Stall = _Stall | Stall | _DStall;
   assign IF_Stall = (__Stall === 1'bx) ? 1'b0 : __Stall;
-  assign IF_PCDisrupt = _PCDisrupt;
+  assign IF_PCDisrupt = (_PCDisrupt === 1'bx) ? 1'b0 : _PCDisrupt;
   assign IF_PCBranch = _PC;
-  assign _Noop = (_Stall | Stall | _DStall | _PCDisrupt) ? 1'b1 : 1'b0;
-  assign ID_Noop = (_Noop === 1'bx) ? 1'b0 : _Noop;
+  assign EX_Noop = (__Stall === 1'bx) ? 1'b0 : __Stall;
+  assign ID_Noop = (_PCDisrupt === 1'bx) ? 1'b0 : _PCDisrupt;
   assign IDEX_SrcReg1 = SrcReg1;
   assign XtoXforward_En = (_XtoXforward_En === 1'bx) ? 1'b0 : _XtoXforward_En;
   

@@ -5,40 +5,63 @@ module cpu(clk, rst_n, hlt, pc);
   output hlt;
   output [15:0] pc;
 
+  // Main Memory
+  wire IF_MemRequest, 
+       MEM_MemRequest, 
+       MEM_MemWrite,
+       IF_MemStall;
+  wire [15:0] IF_MemAddressRequest, 
+              MEM_MemAddressRequest,
+              MEM_MemDataWrite,
+              MemData;
+  MemoryInterface MainMemory(.clk(clk), // INPUTS
+                             .rst(~rst_n),
+                             .InstructionMemRequest(IF_MemRequest),
+                             .InstructionMemAddress(IF_MemAddressRequest),
+                             .MemMemRequest(MEM_MemRequest),
+                             .MemMemWrite(MEM_MemWrite),
+                             .MemMemAddress(MEM_MemAddressRequest),
+                             .MemMemData(MEM_MemDataWrite),
+                             .InstructionMemStallOut(IF_MemStall), // OUTPUTS
+                             .DataOut(MemData));
+
   // Instruction Fetch
-  wire IF_hlt, IF_Stall, IF_PCDisrupt;
+  wire IF_hlt, 
+       IF_Stall, 
+       IF_PCDisrupt,
+       GlobalStall;
   wire [15:0] IF_PC, IF_PCBranch, IF_NextPC, IF_Instruction;
 
+  // PC register
   Register_16 PC(.clk(clk), 
                  .rst(~rst_n), 
-                 .WriteEnable(~IF_Stall),
+                 .WriteEnable(~(IF_Stall|GlobalStall)),
                  .In(IF_NextPC),
                  .Out(IF_PC));
 
-  dff IFStall(.q(IfCacheStallOut), 
-              .d(IFCacheStall|MCacheStall), 
-              .wen(1'b1), 
-              .clk(clk), 
-              .rst(rst));
   InstructionFetch Fetch(.clk(clk), // Inputs
                          .rst(~rst_n),
                          .PC(IF_PC),
-                         .Stall(IF_Stall|IFCacheStallOut),
+                         .Stall(IF_Stall), // From ID
                          .PC_Disrupt(IF_PCDisrupt),
                          .PC_Branch(IF_PCBranch),
+                         .MemStall(IF_MemStall), // From memory
+                         .MemData(MemData),
                          .Instruction(IF_Instruction), // Outputs
                          .NextPC(IF_NextPC),
                          .hlt(IF_hlt),
-                         .CacheStall(IFCacheStall));
+                         .MemoryAddressOut(IF_MemAddressRequest), // To memory
+                         .MemoryRequest(IF_MemRequest));
+
   // Instruction decode
   wire IFID_Stall, 
        ID_Stall,
        ID_Hlt,
        IDEX_Mem_En, 
        IDEX_Mem_Wr, 
-       IDEX_FlagWr, 
+       IDEX_Flag_Wr, 
        ID_Noop,
-       _IDEX_RF_Wr,
+       EX_Noop,
        IDEX_RF_Wr,
        IDEX_MtoXforward_En,
        IDEX_XtoXforward_En,
@@ -46,7 +69,6 @@ module cpu(clk, rst_n, hlt, pc);
        IDEX_XX_Reg2,
        IDEX_MX_Reg1,
        IDEX_MX_Reg2,
-       IDEX_Noop,
        EX_Flag_Wr,
        EX_RF_Wr,
        MEM_RF_Wr;
@@ -67,20 +89,18 @@ module cpu(clk, rst_n, hlt, pc);
   reg [3:0] WB_RegWrite;
   reg [15:0] WB_WriteData;
 
-
   IFIDPipelineRegister IFID(.clk(clk), // Inputs
                             .rst(~rst_n),
                             .HltIn(IF_hlt),
                             .InstructionIn(IF_Instruction),
                             .StallIn(IFID_Stall),
-                            .NoopIn(ID_Noop),
                             .PCIn(IF_PC),
-                            .WriteEnable(~IF_Stall),
+                            .NoopIn(ID_Noop),
+                            .WriteEnable(~(IF_Stall|GlobalStall)),
                             .HltOut(ID_Hlt),
                             .InstructionOut(ID_Instruction),
                             .StallOut(ID_Stall),
-                            .PCOut(ID_PC),
-                            .NoopOut(IDEX_Noop));
+                            .PCOut(ID_PC));
 
   ID Decode(.clk(clk), // Inputs
             .rst(~rst_n),
@@ -99,7 +119,7 @@ module cpu(clk, rst_n, hlt, pc);
             .EXMEM_RF_Wr(MEM_RF_Wr),
             .IDEX_Mem_En(IDEX_Mem_En), // Outputs
             .IDEX_Mem_Wr(IDEX_Mem_Wr),
-            .IDEX_RF_Wr(_IDEX_RF_Wr),
+            .IDEX_RF_Wr(IDEX_RF_Wr),
             .IDEX_WB_Select(IDEX_WB_Select),
             .IDEX_Flag_Wr(IDEX_Flag_Wr),
             .IDEX_RegRead1(IDEX_RegRead1),
@@ -108,6 +128,7 @@ module cpu(clk, rst_n, hlt, pc);
             .IDEX_Imm(IDEX_Imm),
             .IDEX_Opcode(IDEX_Opcode),
             .ID_Noop(ID_Noop),
+            .EX_Noop(EX_Noop),
             .IDEX_SrcReg1(IDEX_SrcReg1),
             .IFID_Stall(IFID_Stall), 
             .IF_PCDisrupt(IF_PCDisrupt), 
@@ -119,9 +140,6 @@ module cpu(clk, rst_n, hlt, pc);
             .XX_Reg2(IDEX_XX_Reg2),
             .MX_Reg1(IDEX_MX_Reg1),
             .MX_Reg2(IDEX_MX_Reg2));
-  // If noop is inserted, disable writing to the register file
-  // (not strictly necessary, but makes the trace cleaner)
-  assign IDEX_RF_Wr = IDEX_Noop ? 1'b0 : _IDEX_RF_Wr;
 
   // Execute
   wire EX_Mem_En, 
@@ -137,7 +155,8 @@ module cpu(clk, rst_n, hlt, pc);
   wire [2:0] EX_Flag;
   wire [3:0] EX_SrcReg1, WB_Opcode;
   wire [7:0] EX_Imm;
-  wire [15:0] EX_RegRead1, 
+  wire [15:0] EX_RegRead1,
+              _EX_RegRead1,
               EX_RegRead2, 
               EX_PC, 
               EXMEM_ALUOut, 
@@ -146,7 +165,8 @@ module cpu(clk, rst_n, hlt, pc);
               MEM_ALUOut;
   IDEXPipelineRegister IDEX(.clk(clk),
                             .rst(~rst_n),
-                            .WriteEnable(1'b1),
+                            .NoopIn(EX_Noop),
+                            .WriteEnable(~GlobalStall),
                             .HltIn(ID_Hlt),
                             .RegRead1In(IDEX_RegRead1),
                             .RegRead2In(IDEX_RegRead2),
@@ -207,6 +227,9 @@ module cpu(clk, rst_n, hlt, pc);
                   .In(EX_Flag), 
                   .WriteEnable(EX_Flag_Wr), 
                   .Out(ID_Flag));
+  // Special handling needed for data hazrd: LW, [Instruction], SW
+  assign _EX_RegRead1 = ((WB_Opcode == 4'b1000) & (EX_Opcode == 4'b1001)) 
+                         ? WB_MemOut : EX_RegRead1;
 
   // Memory
   wire MEM_Hlt, MEM_En, MEM_Wr;
@@ -216,7 +239,7 @@ module cpu(clk, rst_n, hlt, pc);
   EXMEM_PipelineRegister EXMEM(.clk(clk),
                                .rst(~rst_n),
                                .halt_In(EX_Hlt),
-                               .WriteEnable(1'b1),
+                               .WriteEnable(~GlobalStall),
                                .WReg_In(EX_RegWrite),
                                .Mem_EnIn(EX_Mem_En),
                                .MemWr_In(EX_Mem_Wr),
@@ -224,7 +247,7 @@ module cpu(clk, rst_n, hlt, pc);
                                .WB_SelectIn(EX_WB_Select),
                                .OpcodeIn(EX_Opcode),
                                .ALUOut_In(EXMEM_ALUOut),
-                               .RegRead1_In(EX_RegRead1),
+                               .RegRead1_In(_EX_RegRead1),
                                .SrcReg1_In(EX_SrcReg1),
                                .PC_In(EX_PC),
                                .halt_Out(MEM_Hlt),
@@ -250,7 +273,13 @@ module cpu(clk, rst_n, hlt, pc);
              .ALUOut(MEM_ALUOut),
              .WB_RegWrite(WB_RegWrite),
              .WB_MemOut(WB_MemOut),
-             .MemOut(MEM_Out)); // Output
+             .MemData(MemData), // From memory
+             .MemOut(MEM_Out), // Outputs
+             .Stall(GlobalStall), // A stall in MEM globally stalls pipeline 
+             .MemoryAddressOut(MEM_MemAddressRequest), // Send to memory
+             .MemoryDataOut(MEM_MemDataWrite),
+             .MemoryRequest(MEM_MemRequest));
+  assign MEM_MemWrite = MEM_En & MEM_Wr; // Write-through cache policy
 
   // Write-back
   wire WB_Hlt, _WB_RF_Wr;
@@ -260,7 +289,7 @@ module cpu(clk, rst_n, hlt, pc);
   MEMWB_PipelineRegister MEMWB(.clk(clk), 
                                .rst(~rst_n),
                                .halt_In(MEM_Hlt), 
-                               .WriteEnable(1'b1), 
+                               .WriteEnable(~GlobalStall), 
                                .WReg_In(MEM_RegWrite), 
                                .RegWrite_In(MEM_RF_Wr),
                                .Mem_DataIn(MEM_Out),

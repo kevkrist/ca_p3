@@ -5,40 +5,35 @@ module IFIDPipelineRegister(clk,
                             HltIn,
                             InstructionIn,
                             StallIn,
-                            NoopIn,
                             PCIn,
+                            NoopIn,
                             WriteEnable,
                             HltOut,
                             InstructionOut,
                             StallOut,
-                            PCOut, 
-                            NoopOut);
+                            PCOut);
 
   input clk, rst, WriteEnable, StallIn, HltIn, NoopIn;
   input [15:0] InstructionIn, PCIn;
-  inout StallOut, HltOut, NoopOut;
+  inout StallOut, HltOut;
   inout [15:0] InstructionOut, PCOut;
 
-  wire StallReassertEnable;
+  wire StallReassertEnable, _rst;
   assign StallReassertEnable = (~WriteEnable & StallIn) ? 1'b1 : WriteEnable;
+  assign _rst = rst | NoopIn;
 
   dff Hlt(.q(HltOut),
           .d(HltIn),
           .wen(WriteEnable),
           .clk(clk),
-          .rst(rst | NoopIn));
-  dff Noop(.q(NoopOut),
-           .d(NoopIn),
-           .wen(WriteEnable),
-           .clk(clk),
-           .rst(rst));
+          .rst(_rst));
   Register_16 Instruction(.clk(clk), 
-                          .rst(rst | NoopIn), 
+                          .rst(_rst), 
                           .In(InstructionIn), 
                           .WriteEnable(WriteEnable), 
                           .Out(InstructionOut));
   Register_16 PC(.clk(clk), 
-                 .rst(rst | NoopIn), 
+                 .rst(_rst), 
                  .In(PCIn), 
                  .WriteEnable(WriteEnable), 
                  .Out(PCOut));
@@ -51,7 +46,7 @@ module IFIDPipelineRegister(clk,
   // StallReassert, so that a stall is still reasserted in the next stage.
   dff StallReassert(.q(StallOut),
                     .d(StallIn),
-                    .wen(StallReassertEnableEnable),
+                    .wen(StallReassertEnable),
                     .clk(clk),
-                    .rst(rst | NoopIn));
+                    .rst(_rst));
 endmodule
