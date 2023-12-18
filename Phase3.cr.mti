@@ -71,6 +71,13 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 Top level modules:
 	ShiftRightArithmetic
 
+} {} {}} I:/CaIntro/ca_p3/src/Memory/multicycle_memory.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Memory/multicycle_memory.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module memory4c
+
+Top level modules:
+	memory4c
+
 } {} {}} I:/CaIntro/ca_p3/src/Cache/MetaDataArray.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Cache/MetaDataArray.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling module MetaDataArray
@@ -178,6 +185,13 @@ Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 
 Top level modules:
 	ShiftLeftLogical
+
+} {} {}} I:/CaIntro/ca_p3/Phase3Testbench/project-phase3-testbench.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/Phase3Testbench/project-phase3-testbench.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module cpu_ptb
+
+Top level modules:
+	cpu_ptb
 
 } {} {}} I:/CaIntro/ca_p3/src/Adder/Adder_4bit.v {1 {vlog -work work -vopt -stats=none I:/CaIntro/ca_p3/src/Adder/Adder_4bit.v
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021

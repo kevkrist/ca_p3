@@ -1696,3 +1696,5 @@ run -all
 #    Time: 8305 ns  Iteration: 0  Instance: /cpu_ptb
 # 1
 # Break in Module cpu_ptb at I:/CaIntro/ca_p3/Phase3Testbench/project-phase3-testbench.v line 157
+# End time: 17:53:26 on Dec 18,2023, Elapsed time: 4:28:16
+# Errors: 1, Warnings: 1, Suppressed Errors: 1
